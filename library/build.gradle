@@ -1,0 +1,23 @@
+/*
+ * Copyright © 2019 Harsh Shandilya <msfjarvis@gmail.com>. All Rights Reserved.
+ * SPDX-License-Identifier: GPL-3.0-Only
+ */
+apply plugin: 'com.android.library'
+
+android {
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation 'androidx.annotation:annotation:' + versions.annotation
+    implementation 'androidx.appcompat:appcompat:' + versions.appcompat
+    implementation 'androidx.core:core-ktx:' + versions.coreKtx
+    implementation 'com.jakewharton.timber:timber:' + versions.timber
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:' + versions.leakcanary
+}
