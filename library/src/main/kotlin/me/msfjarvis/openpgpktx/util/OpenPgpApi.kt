@@ -26,7 +26,8 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
         fun onReturn(result: Intent?)
     }
 
-    private class OpenPgpAsyncTask(
+    @Suppress("StaticFieldLeak")
+    inner class OpenPgpAsyncTask(
         private var data: Intent?,
         private var `is`: InputStream?,
         private var os: OutputStream?,
