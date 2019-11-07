@@ -73,9 +73,10 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
         serviceConnection?.bindToService()
     }
 
-    private fun getSignKeyId(data: Intent) {
-        data.action = OpenPgpApi.ACTION_GET_SIGN_KEY_ID
-        data.putExtra(OpenPgpApi.EXTRA_USER_ID, defaultUserId)
+    private fun getSignKeyId(data: Intent?) {
+        val intent = data ?: Intent()
+        intent.action = OpenPgpApi.ACTION_GET_SIGN_KEY_ID
+        intent.putExtra(OpenPgpApi.EXTRA_USER_ID, defaultUserId)
         val api = OpenPgpApi(context, serviceConnection!!.service!!)
         api.executeApiAsync(data, null, null, MyCallback(intentRequestCode))
     }
@@ -193,7 +194,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
         notifyChanged()
     }
 
-    fun handleOnActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean {
+    fun handleOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
         return if (requestCode == intentRequestCode && resultCode == Activity.RESULT_OK) {
             getSignKeyId(data)
             true
