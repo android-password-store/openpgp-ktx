@@ -13,6 +13,9 @@ android {
         }
     }
 
+    lintOptions {
+        disable 'MissingTranslation' // Can't do anything about this
+    }
 }
 
 dependencies {
