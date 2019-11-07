@@ -52,6 +52,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
 
     private fun updateEnabled() {
         isEnabled = !TextUtils.isEmpty(openPgpProvider)
+        notifyChanged()
     }
 
     override fun onClick() {
