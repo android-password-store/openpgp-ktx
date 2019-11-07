@@ -4,11 +4,12 @@
  */
 package openpgpktx.sample
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import me.msfjarvis.openpgpktx.preference.OpenPgpAppPreference
@@ -59,18 +60,34 @@ class SettingsActivity : AppCompatActivity() {
         serviceConnection = null
     }
 
-    class SettingsFragment : PreferenceFragmentCompat() {
+    class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+        private var providerPref: OpenPgpAppPreference? = null
+        private var keyPref: OpenPgpKeyPreference? = null
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
-            val providerPref = findPreference<OpenPgpAppPreference>("provider_app")
-            val keyPref = findPreference<OpenPgpKeyPreference>("pgp_key")
+            preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+            providerPref = findPreference<OpenPgpAppPreference>("provider_app")
+            keyPref = findPreference<OpenPgpKeyPreference>("pgp_key")
             keyPref?.openPgpProvider = preferenceManager.sharedPreferences.getString("provider_app", "")
             // Re-setting default values to show usage and silence IDE warnings about possible weaker access
-            keyPref?.defaultUserId = null
+            keyPref?.defaultUserId = "Harsh Shandilya <msfjarvis@gmail.com>"
             keyPref?.intentRequestCode = 9999
-            providerPref?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-                keyPref?.openPgpProvider = newValue as String
-                true
+        }
+
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            if (keyPref?.handleOnActivityResult(requestCode, resultCode, data) == true) {
+                return
+            } else {
+                super.onActivityResult(requestCode, resultCode, data)
+            }
+        }
+
+        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+            when (key) {
+                "provider_app" -> {
+                    keyPref?.openPgpProvider = sharedPreferences?.getString(key, "")
+                }
             }
         }
     }
