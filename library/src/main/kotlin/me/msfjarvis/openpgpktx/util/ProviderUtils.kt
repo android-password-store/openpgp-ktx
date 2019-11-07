@@ -2,21 +2,24 @@
  * Copyright © 2019 Harsh Shandilya <msfjarvis@gmail.com>. All Rights Reserved.
  * SPDX-License-Identifier: GPL-3.0-Only
  */
-package openpgpktx.sample.util
+package me.msfjarvis.openpgpktx.util
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.content.res.AppCompatResources
-import openpgpktx.sample.R
-import openpgpktx.sample.model.OpenPgpProviderEntry
+import me.msfjarvis.openpgpktx.R
+import me.msfjarvis.openpgpktx.model.OpenPgpProviderEntry
 
 object ProviderUtils {
     private const val OPENKEYCHAIN_PACKAGE = "org.sufficientlysecure.keychain"
     private const val MARKET_INTENT_URI_BASE = "market://details?id=%s"
     private const val PACKAGE_NAME_APG = "org.thialfihar.android.apg"
     private val PROVIDER_BLACKLIST = arrayOf(PACKAGE_NAME_APG)
-    private val MARKET_INTENT = Intent(Intent.ACTION_VIEW, Uri.parse(String.format(MARKET_INTENT_URI_BASE, OPENKEYCHAIN_PACKAGE)))
+    private val MARKET_INTENT = Intent(Intent.ACTION_VIEW, Uri.parse(String.format(
+        MARKET_INTENT_URI_BASE,
+        OPENKEYCHAIN_PACKAGE
+    )))
 
     fun getAppList(context: Context): ArrayList<OpenPgpProviderEntry> {
         val apps = ArrayList<OpenPgpProviderEntry>()
@@ -25,7 +28,7 @@ object ProviderUtils {
         apps.add(0,
             OpenPgpProviderEntry(
                 "",
-                "None",
+                context.resources.getString(R.string.openpgp_list_preference_none),
                 AppCompatResources.getDrawable(context, android.R.drawable.sym_def_app_icon)
             )
         )

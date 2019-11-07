@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <openpgpktx.sample.preference.OpenPgpAppPreference
+    <me.msfjarvis.openpgpktx.preference.OpenPgpAppPreference
         app:key="provider_app"
         app:title="Provider app"
         app:persistent="true" />
