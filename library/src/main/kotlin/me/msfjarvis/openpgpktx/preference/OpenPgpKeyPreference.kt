@@ -40,7 +40,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
     private var requestCodeKeyPreference = 9999
 
     override fun getSummary(): CharSequence? {
-        return if (mKeyId == NO_KEY.toLong()) context.getString(R.string.openpgp_no_key_selected) else context.getString(
+        return if (mKeyId == NO_KEY) context.getString(R.string.openpgp_no_key_selected) else context.getString(
             R.string.openpgp_key_selected
         )
     }
@@ -96,7 +96,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
             when (result!!.getIntExtra(OpenPgpApi.RESULT_CODE, OpenPgpApi.RESULT_CODE_ERROR)) {
                 OpenPgpApi.RESULT_CODE_SUCCESS -> {
                     val keyId =
-                        result.getLongExtra(OpenPgpApi.EXTRA_SIGN_KEY_ID, NO_KEY.toLong())
+                        result.getLongExtra(OpenPgpApi.EXTRA_SIGN_KEY_ID, NO_KEY)
                     save(keyId)
                 }
                 OpenPgpApi.RESULT_CODE_USER_INTERACTION_REQUIRED -> {
@@ -160,7 +160,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
     ): Any? {
         // This preference type's value type is Long, so we read the default
         // value from the attributes as an Integer.
-        return a.getInteger(index, NO_KEY).toLong()
+        return a.getInteger(index, NO_KEY.toInt()).toLong()
     }
 
     override fun onSetInitialValue(restoreValue: Boolean, defaultValue: Any) {
@@ -213,7 +213,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
     }
 
     companion object {
-        private const val NO_KEY = 0
+        private const val NO_KEY = 0L
     }
 
     /**
