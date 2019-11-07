@@ -21,9 +21,6 @@ ext {
         annotation: '1.1.0',
         appcompat: '1.1.0',
         coreKtx: '1.2.0-beta01',
-        preference: '1.1.0',
-
-        // Third party
-        timber: '4.7.1'
+        preference: '1.1.0'
     ]
 }

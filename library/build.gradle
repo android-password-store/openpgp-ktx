@@ -20,5 +20,4 @@ dependencies {
     api 'androidx.appcompat:appcompat:' + versions.appcompat
     api 'androidx.core:core-ktx:' + versions.coreKtx
     api 'androidx.preference:preference:' + versions.preference
-    implementation 'com.jakewharton.timber:timber:' + versions.timber
 }

@@ -7,10 +7,10 @@ package me.msfjarvis.openpgpktx.util
 import android.os.ParcelFileDescriptor
 import android.os.ParcelFileDescriptor.AutoCloseInputStream
 import android.os.ParcelFileDescriptor.AutoCloseOutputStream
+import android.util.Log
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import timber.log.Timber
 
 object ParcelFileDescriptorUtil {
     @Throws(IOException::class)
@@ -40,7 +40,7 @@ object ParcelFileDescriptorUtil {
                     out.write(buf, 0, len)
                 }
             } catch (e: IOException) {
-                Timber.e(e, "IOException when writing to out")
+                Log.e(OpenPgpApi.TAG, "IOException when writing to out", e)
             } finally {
                 try {
                     `in`.close()

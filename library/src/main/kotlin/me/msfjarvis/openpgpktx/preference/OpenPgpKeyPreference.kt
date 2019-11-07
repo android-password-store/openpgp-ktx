@@ -17,6 +17,7 @@ import android.os.Parcelable
 import android.os.Parcelable.Creator
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import androidx.preference.Preference
 import me.msfjarvis.openpgpktx.OpenPgpError
 import me.msfjarvis.openpgpktx.R
@@ -26,7 +27,6 @@ import me.msfjarvis.openpgpktx.util.OpenPgpServiceConnection
 import me.msfjarvis.openpgpktx.util.OpenPgpServiceConnection.OnBound
 import me.msfjarvis.openpgpktx.util.getAttr
 import org.openintents.openpgp.IOpenPgpService2
-import timber.log.Timber
 
 class OpenPgpKeyPreference @JvmOverloads constructor(
     context: Context,
@@ -65,7 +65,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
                 }
 
                 override fun onError(e: Exception?) {
-                    Timber.tag(OpenPgpApi.TAG).e(e, "exception on binding!")
+                    Log.e(OpenPgpApi.TAG, "exception on binding!")
                 }
             }
         )
@@ -97,12 +97,12 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
                             requestCode, null, 0, 0, 0
                         )
                     } catch (e: SendIntentException) {
-                        Timber.tag(OpenPgpApi.TAG).e(e, "SendIntentException")
+                        Log.e(OpenPgpApi.TAG, "SendIntentException", e)
                     }
                 }
                 OpenPgpApi.RESULT_CODE_ERROR -> {
                     val error: OpenPgpError? = result.getParcelableExtra(OpenPgpApi.RESULT_ERROR)
-                    Timber.tag(OpenPgpApi.TAG).e("RESULT_CODE_ERROR: %s", error?.getMessage())
+                    Log.e(OpenPgpApi.TAG, "RESULT_CODE_ERROR: " + error?.getMessage())
                 }
             }
         }

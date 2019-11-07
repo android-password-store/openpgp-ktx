@@ -9,13 +9,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.ParcelFileDescriptor
+import android.util.Log
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.concurrent.atomic.AtomicInteger
 import me.msfjarvis.openpgpktx.OpenPgpError
 import org.openintents.openpgp.IOpenPgpService2
-import timber.log.Timber
 
 class OpenPgpApi(private val context: Context, private val service: IOpenPgpService2) {
 
@@ -59,7 +59,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
             }
             executeApi(data, input, os)
         } catch (e: Exception) {
-            Timber.e(e, "Exception in executeApi call")
+            Log.e(TAG, "Exception in executeApi call", e)
             val result = Intent()
             result.putExtra(RESULT_CODE, RESULT_CODE_ERROR)
             result.putExtra(
@@ -72,7 +72,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
                 try {
                     input.close()
                 } catch (e: IOException) {
-                    Timber.e(e, "IOException when closing ParcelFileDescriptor!")
+                    Log.e(TAG, "IOException when closing ParcelFileDescriptor!", e)
                 }
             }
         }
@@ -104,7 +104,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
             pumpThread?.join()
             result
         } catch (e: Exception) {
-            Timber.e(e, "Exception in executeApi call")
+            Log.e(TAG, "Exception in executeApi call", e)
             val result = Intent()
             result.putExtra(RESULT_CODE, RESULT_CODE_ERROR)
             result.putExtra(
@@ -118,7 +118,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
                 try {
                     output.close()
                 } catch (e: IOException) {
-                    Timber.e(e, "IOException when closing ParcelFileDescriptor!")
+                    Log.e(TAG, "IOException when closing ParcelFileDescriptor!", e)
                 }
             }
         }
