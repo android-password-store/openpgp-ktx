@@ -9,8 +9,8 @@ import android.os.Parcelable
 import android.os.Parcelable.Creator
 
 class OpenPgpError() : Parcelable {
-    internal var errorId = 0
-    internal var message: String? = null
+    var errorId = 0
+    var message: String? = null
 
     constructor(parcel: Parcel) : this() {
         errorId = parcel.readInt()
@@ -25,22 +25,6 @@ class OpenPgpError() : Parcelable {
     constructor(b: OpenPgpError) : this() {
         errorId = b.errorId
         message = b.message
-    }
-
-    fun getErrorId(): Int {
-        return errorId
-    }
-
-    fun setErrorId(errorId: Int) {
-        this.errorId = errorId
-    }
-
-    fun getMessage(): String? {
-        return message
-    }
-
-    fun setMessage(message: String?) {
-        this.message = message
     }
 
     override fun describeContents(): Int {

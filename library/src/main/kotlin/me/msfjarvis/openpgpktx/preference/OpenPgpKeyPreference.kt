@@ -104,7 +104,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
                 }
                 OpenPgpApi.RESULT_CODE_ERROR -> {
                     val error: OpenPgpError? = result.getParcelableExtra(OpenPgpApi.RESULT_ERROR)
-                    Log.e(OpenPgpApi.TAG, "RESULT_CODE_ERROR: " + error?.getMessage())
+                    Log.e(OpenPgpApi.TAG, "RESULT_CODE_ERROR: " + error?.message)
                 }
             }
         }
