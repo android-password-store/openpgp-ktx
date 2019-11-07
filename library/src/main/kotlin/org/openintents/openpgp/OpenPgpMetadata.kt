@@ -2,7 +2,7 @@
  * Copyright © 2019 Harsh Shandilya <msfjarvis@gmail.com>. All Rights Reserved.
  * SPDX-License-Identifier: GPL-3.0-Only
  */
-package me.msfjarvis.openpgpktx
+package org.openintents.openpgp
 
 import android.os.Parcel
 import android.os.Parcelable
