@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: GPL-3.0-Only
  */
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
     buildTypes {
