@@ -4,3 +4,4 @@
  */
 include ':library'
 rootProject.name='OpenPGP KTX'
+include ':sample'

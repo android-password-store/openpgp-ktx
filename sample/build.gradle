@@ -2,9 +2,13 @@
  * Copyright © 2019 Harsh Shandilya <msfjarvis@gmail.com>. All Rights Reserved.
  * SPDX-License-Identifier: GPL-3.0-Only
  */
-apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
+    defaultConfig {
+        applicationId "openpgpktx.sample"
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -15,8 +19,8 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:' + versions.annotation
-    implementation 'androidx.appcompat:appcompat:' + versions.appcompat
-    implementation 'androidx.core:core-ktx:' + versions.coreKtx
-    implementation 'com.jakewharton.timber:timber:' + versions.timber
+    implementation project(':library')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.preference:preference:1.1.0'
 }
