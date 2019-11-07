@@ -1,0 +1,9 @@
+name: "CI builds"
+on: [push, pull_request]
+
+jobs:
+  setup-android:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - run: ./gradlew spotlessCheck build lint
