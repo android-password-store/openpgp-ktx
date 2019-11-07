@@ -3,7 +3,12 @@
 
     <me.msfjarvis.openpgpktx.preference.OpenPgpAppPreference
         app:key="provider_app"
-        app:title="Provider app"
+        app:title="@string/pgp_provider_title"
+        app:persistent="true" />
+
+    <me.msfjarvis.openpgpktx.preference.OpenPgpKeyPreference
+        app:key="pgp_key"
+        app:title="@string/pgp_key_title"
         app:persistent="true" />
 
 </PreferenceScreen>
