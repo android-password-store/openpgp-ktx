@@ -64,9 +64,12 @@ class SettingsActivity : AppCompatActivity() {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             val providerPref = findPreference<OpenPgpAppPreference>("provider_app")
             val keyPref = findPreference<OpenPgpKeyPreference>("pgp_key")
-            keyPref?.setOpenPgpProvider(preferenceManager.sharedPreferences.getString("provider_app", ""))
+            keyPref?.openPgpProvider = preferenceManager.sharedPreferences.getString("provider_app", "")
+            // Re-setting default values to show usage and silence IDE warnings about possible weaker access
+            keyPref?.defaultUserId = null
+            keyPref?.intentRequestCode = 9999
             providerPref?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-                keyPref?.setOpenPgpProvider(newValue as String)
+                keyPref?.openPgpProvider = newValue as String
                 true
             }
         }

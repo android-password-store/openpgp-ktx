@@ -34,45 +34,31 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
     defStyleAttr: Int = getAttr(context, R.attr.preferenceStyle, android.R.attr.preferenceStyle),
     defStyleRes: Int = 0
 ) : Preference(context, attrs, defStyleAttr, defStyleRes) {
-    private var mKeyId: Long = 0
-    private var mOpenPgpProvider: String? = null
-    private var mServiceConnection: OpenPgpServiceConnection? = null
-    private var mDefaultUserId: String? = null
-
-    private var requestCodeKeyPreference = 9999
+    private var keyId: Long = 0
+    var openPgpProvider: String? = null
+        set(value) {
+            field = value
+            updateEnabled()
+        }
+    var defaultUserId: String? = null
+    var intentRequestCode = 9999
+    private var serviceConnection: OpenPgpServiceConnection? = null
 
     override fun getSummary(): CharSequence? {
-        return if (mKeyId == NO_KEY) context.getString(R.string.openpgp_no_key_selected) else context.getString(
+        return if (keyId == NO_KEY) context.getString(R.string.openpgp_no_key_selected) else context.getString(
             R.string.openpgp_key_selected
         )
     }
 
     private fun updateEnabled() {
-        isEnabled = !TextUtils.isEmpty(mOpenPgpProvider)
-    }
-
-    fun setOpenPgpProvider(packageName: String?) {
-        mOpenPgpProvider = packageName
-        updateEnabled()
-    }
-
-    fun setDefaultUserId(userId: String?) {
-        mDefaultUserId = userId
-    }
-
-    fun getIntentRequestCode(): Int {
-        return requestCodeKeyPreference
-    }
-
-    fun setIntentRequestCode(requestCode: Int) {
-        requestCodeKeyPreference = requestCode
+        isEnabled = !TextUtils.isEmpty(openPgpProvider)
     }
 
     override fun onClick() {
         // bind to service
-        mServiceConnection = OpenPgpServiceConnection(
+        serviceConnection = OpenPgpServiceConnection(
             context.applicationContext,
-            mOpenPgpProvider,
+            openPgpProvider,
             object : OnBound {
                 override fun onBound(service: IOpenPgpService2?) {
                     getSignKeyId(Intent())
@@ -83,14 +69,14 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
                 }
             }
         )
-        mServiceConnection?.bindToService()
+        serviceConnection?.bindToService()
     }
 
     private fun getSignKeyId(data: Intent) {
         data.action = OpenPgpApi.ACTION_GET_SIGN_KEY_ID
-        data.putExtra(OpenPgpApi.EXTRA_USER_ID, mDefaultUserId)
-        val api = OpenPgpApi(context, mServiceConnection!!.service!!)
-        api.executeApiAsync(data, null, null, MyCallback(requestCodeKeyPreference))
+        data.putExtra(OpenPgpApi.EXTRA_USER_ID, defaultUserId)
+        val api = OpenPgpApi(context, serviceConnection!!.service!!)
+        api.executeApiAsync(data, null, null, MyCallback(intentRequestCode))
     }
 
     inner class MyCallback(private var requestCode: Int) : IOpenPgpCallback {
@@ -142,14 +128,14 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
      * Public API
      */
     fun getValue(): Long {
-        return mKeyId
+        return keyId
     }
 
     private fun setAndPersist(newValue: Long) {
-        mKeyId = newValue
+        keyId = newValue
         // Save to persistent storage (this method will make sure this
         // preference should be persistent, along with other useful checks)
-        persistLong(mKeyId)
+        persistLong(keyId)
         // Data has changed, notify so UI can be refreshed!
         notifyChanged()
     }
@@ -165,7 +151,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
 
     override fun onSetInitialValue(restoreValue: Boolean, defaultValue: Any) {
         if (restoreValue) { // Restore state
-            mKeyId = getPersistedLong(mKeyId)
+            keyId = getPersistedLong(keyId)
         } else { // Set state
             val value = defaultValue as Long
             setAndPersist(value)
@@ -185,9 +171,9 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
         }
         // Save the instance state
         val myState = SavedState(superState)
-        myState.keyId = mKeyId
-        myState.openPgpProvider = mOpenPgpProvider
-        myState.defaultUserId = mDefaultUserId
+        myState.keyId = keyId
+        myState.openPgpProvider = openPgpProvider
+        myState.defaultUserId = defaultUserId
         return myState
     }
 
@@ -200,14 +186,14 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
         // Restore the instance state
         val myState = state as SavedState
         super.onRestoreInstanceState(myState.superState)
-        mKeyId = myState.keyId
-        mOpenPgpProvider = myState.openPgpProvider
-        mDefaultUserId = myState.defaultUserId
+        keyId = myState.keyId
+        openPgpProvider = myState.openPgpProvider
+        defaultUserId = myState.defaultUserId
         notifyChanged()
     }
 
     fun handleOnActivityResult(requestCode: Int, resultCode: Int, data: Intent): Boolean {
-        return if (requestCode == requestCodeKeyPreference && resultCode == Activity.RESULT_OK) {
+        return if (requestCode == intentRequestCode && resultCode == Activity.RESULT_OK) {
             getSignKeyId(data)
             true
         } else {
