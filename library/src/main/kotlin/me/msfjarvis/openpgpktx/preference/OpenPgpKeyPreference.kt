@@ -2,6 +2,8 @@
  * Copyright © 2019 Harsh Shandilya <msfjarvis@gmail.com>. All Rights Reserved.
  * SPDX-License-Identifier: GPL-3.0-Only
  */
+@file:JvmName("OpenPgpKeyPreference")
+@file:Suppress("Unused")
 package me.msfjarvis.openpgpktx.preference
 
 import android.app.Activity
@@ -105,7 +107,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
                     try {
                         val act = context as Activity
                         act.startIntentSenderFromChild(
-                            act, pi.intentSender,
+                            act, pi?.intentSender,
                             requestCode, null, 0, 0, 0
                         )
                     } catch (e: SendIntentException) {
@@ -113,8 +115,8 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
                     }
                 }
                 OpenPgpApi.RESULT_CODE_ERROR -> {
-                    val error: OpenPgpError = result.getParcelableExtra(OpenPgpApi.RESULT_ERROR)
-                    Timber.tag(OpenPgpApi.TAG).e("RESULT_CODE_ERROR: %s", error.getMessage())
+                    val error: OpenPgpError? = result.getParcelableExtra(OpenPgpApi.RESULT_ERROR)
+                    Timber.tag(OpenPgpApi.TAG).e("RESULT_CODE_ERROR: %s", error?.getMessage())
                 }
             }
         }
@@ -150,8 +152,6 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
         persistLong(mKeyId)
         // Data has changed, notify so UI can be refreshed!
         notifyChanged()
-        // also update summary
-        summary = summary
     }
 
     override fun onGetDefaultValue(
@@ -172,13 +172,15 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
         }
     }
 
-    override fun onSaveInstanceState(): Parcelable? { /*
+    override fun onSaveInstanceState(): Parcelable? {
+        /*
          * Suppose a client uses this preference type without persisting. We
          * must save the instance state so it is able to, for example, survive
          * orientation changes.
          */
         val superState = super.onSaveInstanceState()
-        if (isPersistent) { // No need to save instance state since it's persistent
+        if (isPersistent) {
+            // No need to save instance state since it's persistent
             return superState
         }
         // Save the instance state
@@ -190,7 +192,8 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
     }
 
     override fun onRestoreInstanceState(state: Parcelable) {
-        if (state.javaClass != SavedState::class.java) { // Didn't save state for us in onSaveInstanceState
+        if (state.javaClass != SavedState::class.java) {
+            // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state)
             return
         }
@@ -217,7 +220,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
     }
 
     /**
-     * SavedState, a subclass of [BaseSavedState], will store the state
+     * SavedState, a subclass of [androidx.preference.Preference.BaseSavedState], will store the state
      * of MyPreference, a subclass of Preference.
      *
      *
