@@ -17,8 +17,8 @@ buildscript {
 }
 
 subprojects {
-    apply from: rootProject.projectDir.absolutePath + '/versions.gradle'
-    apply from: rootProject.projectDir.absolutePath + '/spotless.gradle'
+    apply from: rootProject.file('versions.gradle')
+    apply from: rootProject.file('spotless.gradle')
     repositories {
         google()
         jcenter()
@@ -60,7 +60,7 @@ subprojects {
     }
 }
 
-apply from: projectDir.absolutePath + '/spotless.root.gradle'
+apply from: file('spotless.root.gradle')
 
 tasks {
     wrapper {
