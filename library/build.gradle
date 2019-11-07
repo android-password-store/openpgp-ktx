@@ -26,5 +26,4 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:' + versions.appcompat
     implementation 'androidx.core:core-ktx:' + versions.coreKtx
     implementation 'com.jakewharton.timber:timber:' + versions.timber
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:' + versions.leakcanary
 }
