@@ -7,7 +7,6 @@ package me.msfjarvis.openpgpktx.util
 
 import android.content.Context
 import android.content.Intent
-import android.content.RestrictionsManager
 import android.os.AsyncTask
 import android.os.ParcelFileDescriptor
 import java.io.IOException
@@ -64,7 +63,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
             val result = Intent()
             result.putExtra(RESULT_CODE, RESULT_CODE_ERROR)
             result.putExtra(
-                RestrictionsManager.RESULT_ERROR,
+                RESULT_ERROR,
                 OpenPgpError(OpenPgpError.CLIENT_SIDE_ERROR, e.message)
             )
             result
@@ -109,7 +108,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
             val result = Intent()
             result.putExtra(RESULT_CODE, RESULT_CODE_ERROR)
             result.putExtra(
-                RestrictionsManager.RESULT_ERROR,
+                RESULT_ERROR,
                 OpenPgpError(OpenPgpError.CLIENT_SIDE_ERROR, e.message)
             )
             result
