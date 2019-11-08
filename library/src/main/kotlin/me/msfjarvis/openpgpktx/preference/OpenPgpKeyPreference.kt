@@ -66,7 +66,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
                 }
 
                 override fun onError(e: Exception?) {
-                    Log.e(OpenPgpApi.TAG, "exception on binding!")
+                    Log.e(OpenPgpApi.TAG, "exception on binding!", e)
                 }
             }
         )
