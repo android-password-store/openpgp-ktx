@@ -20,6 +20,9 @@ ext {
         annotation: '1.1.0',
         appcompat: '1.1.0',
         coreKtx: '1.2.0-beta01',
-        preference: '1.1.0'
+        preference: '1.1.0',
+
+        // Kotlin
+        coroutines: '1.3.2'
     ]
 }
