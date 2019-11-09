@@ -9,4 +9,5 @@
     <string name="openpgp_key_selected">Key has been selected</string>
     <string name="pgp_provider_title">OpenPGP Provider</string>
     <string name="pgp_key_title">PGP key ID</string>
+    <string name="openpgp_api_pref_title">OpenPGP API</string>
 </resources>

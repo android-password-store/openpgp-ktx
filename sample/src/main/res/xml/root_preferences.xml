@@ -11,4 +11,7 @@
         app:title="@string/pgp_key_title"
         app:persistent="true" />
 
+    <Preference
+        app:key="openpgp_api"
+        app:title="@string/openpgp_api_pref_title" />
 </PreferenceScreen>
