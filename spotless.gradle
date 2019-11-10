@@ -11,16 +11,6 @@ spotless {
         trimTrailingWhitespace()
         endWithNewline()
     }
-
-    java {
-        target 'app/src/main/java/com/wireguard/android/util/ObservableSortedKeyedArrayList.java', 'app/src/main/java/com/wireguard/android/util/ObservableKeyedArrayList.java', 'app/src/main/java/com/wireguard/android/util/KotlinCompanions.java'
-        trimTrailingWhitespace()
-        licenseHeaderFile rootProject.file('spotless.license')
-        removeUnusedImports()
-        googleJavaFormat().aosp()
-        endWithNewline()
-    }
-
     kotlin {
         target '**/src/**/*.kt'
         ktlint('0.35.0').userData(['indent_size': '4', 'continuation_indent_size': '8'])
