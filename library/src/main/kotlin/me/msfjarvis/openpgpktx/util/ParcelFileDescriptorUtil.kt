@@ -13,6 +13,8 @@ import java.io.InputStream
 import java.io.OutputStream
 
 object ParcelFileDescriptorUtil {
+    private const val TAG = "PFDUtils"
+
     @Throws(IOException::class)
     fun pipeFrom(inputStream: InputStream): ParcelFileDescriptor {
         val pipe = ParcelFileDescriptor.createPipe()
@@ -40,7 +42,7 @@ object ParcelFileDescriptorUtil {
                     out.write(buf, 0, len)
                 }
             } catch (e: IOException) {
-                Log.e(OpenPgpApi.TAG, "IOException when writing to out", e)
+                Log.e(TAG, "IOException when writing to out", e)
             } finally {
                 try {
                     `in`.close()

@@ -66,7 +66,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
                 }
 
                 override fun onError(e: Exception?) {
-                    Log.e(OpenPgpApi.TAG, "exception on binding!", e)
+                    Log.e(TAG, "exception on binding!", e)
                 }
             }
         )
@@ -83,7 +83,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
 
     inner class MyCallback(private var requestCode: Int) : IOpenPgpCallback {
         override fun onReturn(result: Intent?) {
-            when (result!!.getIntExtra(OpenPgpApi.RESULT_CODE, OpenPgpApi.RESULT_CODE_ERROR)) {
+            when (result?.getIntExtra(OpenPgpApi.RESULT_CODE, OpenPgpApi.RESULT_CODE_ERROR)) {
                 OpenPgpApi.RESULT_CODE_SUCCESS -> {
                     val keyId =
                         result.getLongExtra(OpenPgpApi.EXTRA_SIGN_KEY_ID, NO_KEY)
@@ -99,12 +99,12 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
                             requestCode, null, 0, 0, 0
                         )
                     } catch (e: SendIntentException) {
-                        Log.e(OpenPgpApi.TAG, "SendIntentException", e)
+                        Log.e(TAG, "SendIntentException", e)
                     }
                 }
                 OpenPgpApi.RESULT_CODE_ERROR -> {
                     val error: OpenPgpError? = result.getParcelableExtra(OpenPgpApi.RESULT_ERROR)
-                    Log.e(OpenPgpApi.TAG, "RESULT_CODE_ERROR: " + error?.message)
+                    Log.e(TAG, "RESULT_CODE_ERROR: " + error?.message)
                 }
             }
         }
@@ -205,6 +205,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
 
     companion object {
         private const val NO_KEY = 0L
+        private const val TAG = "OpenPgpKeyPreference"
     }
 
     /**
