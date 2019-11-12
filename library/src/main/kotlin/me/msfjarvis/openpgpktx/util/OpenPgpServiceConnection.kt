@@ -15,8 +15,8 @@ class OpenPgpServiceConnection(context: Context, providerPackageName: String?) {
 
     // callback interface
     interface OnBound {
-        fun onBound(service: IOpenPgpService2?)
-        fun onError(e: Exception?)
+        fun onBound(service: IOpenPgpService2)
+        fun onError(e: Exception)
     }
 
     private val mApplicationContext: Context = context.applicationContext
@@ -47,7 +47,7 @@ class OpenPgpServiceConnection(context: Context, providerPackageName: String?) {
     private val mServiceConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
             this@OpenPgpServiceConnection.service = IOpenPgpService2.Stub.asInterface(service)
-            mOnBoundListener?.onBound(this@OpenPgpServiceConnection.service)
+            mOnBoundListener?.onBound(this@OpenPgpServiceConnection.service!!)
         }
 
         override fun onServiceDisconnected(name: ComponentName) {
@@ -79,7 +79,7 @@ class OpenPgpServiceConnection(context: Context, providerPackageName: String?) {
             }
         } else {
             // already bound, but also inform client about it with callback
-            mOnBoundListener?.onBound(service)
+            mOnBoundListener?.onBound(service!!)
         }
     }
 

@@ -27,11 +27,11 @@ class SettingsActivity : AppCompatActivity() {
             applicationContext,
             PreferenceManager.getDefaultSharedPreferences(applicationContext).getString("provider_app", ""),
             object : OpenPgpServiceConnection.OnBound {
-                override fun onBound(service: IOpenPgpService2?) {
+                override fun onBound(service: IOpenPgpService2) {
                     Toast.makeText(applicationContext, "onBound", Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onError(e: Exception?) {
+                override fun onError(e: Exception) {
                     Toast.makeText(applicationContext, "onError", Toast.LENGTH_SHORT).show()
                 }
             }

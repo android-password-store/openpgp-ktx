@@ -61,11 +61,11 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
             context.applicationContext,
             openPgpProvider,
             object : OnBound {
-                override fun onBound(service: IOpenPgpService2?) {
+                override fun onBound(service: IOpenPgpService2) {
                     getSignKeyId(Intent())
                 }
 
-                override fun onError(e: Exception?) {
+                override fun onError(e: Exception) {
                     Log.e(TAG, "exception on binding!", e)
                 }
             }

@@ -3,6 +3,7 @@
 ### [Unreleased]
 - Update library dependencies
 - Make logtags unique across classes to aid debugging
+- **BREAKING**: Make parameters in OnBound interface non-null
 
 ### [0.1.0] - 2019-11-08
 - Initial release
