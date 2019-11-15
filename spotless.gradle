@@ -5,6 +5,13 @@
 apply plugin: 'com.diffplug.gradle.spotless'
 
 spotless {
+    format 'aidl', {
+      target '**/src/**/*.aidl'
+      indentWithSpaces(4)
+      trimTrailingWhitespace()
+      endWithNewline()
+      licenseHeaderFile rootProject.file('spotless.license'), 'package'
+    }
     format 'xml', {
         target '**/src/**/*.xml'
         indentWithSpaces(4)
