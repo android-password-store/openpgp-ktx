@@ -19,6 +19,8 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
 import androidx.preference.Preference
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import me.msfjarvis.openpgpktx.OpenPgpError
 import me.msfjarvis.openpgpktx.R
 import me.msfjarvis.openpgpktx.util.OpenPgpApi
@@ -77,8 +79,12 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
         val intent = data ?: Intent()
         intent.action = OpenPgpApi.ACTION_GET_SIGN_KEY_ID
         intent.putExtra(OpenPgpApi.EXTRA_USER_ID, defaultUserId)
-        val api = OpenPgpApi(context, serviceConnection!!.service!!)
-        api.executeApiAsync(data, null, null, MyCallback(intentRequestCode))
+        GlobalScope.launch {
+            OpenPgpApi(
+                context,
+                serviceConnection!!.service!!
+            ).executeApiAsync(data, null, null, MyCallback(intentRequestCode))
+        }
     }
 
     inner class MyCallback(private var requestCode: Int) : IOpenPgpCallback {
