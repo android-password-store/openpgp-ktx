@@ -4,6 +4,7 @@
 - Update library dependencies
 - Make logtags unique across classes to aid debugging
 - **BREAKING**: Make parameters in OnBound interface non-null
+- **BREAKING**: `OpenPgpApi#executeApiAsync` is now a `suspend` function and only works with a [coroutines](https://github.com/kotlin/kotlinx.coroutines) caller
 
 ### [0.1.0] - 2019-11-08
 - Initial release

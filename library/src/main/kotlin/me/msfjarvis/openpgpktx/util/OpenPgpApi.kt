@@ -7,48 +7,41 @@ package me.msfjarvis.openpgpktx.util
 
 import android.content.Context
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.ParcelFileDescriptor
 import android.util.Log
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.withContext
 import me.msfjarvis.openpgpktx.OpenPgpError
 import org.openintents.openpgp.IOpenPgpService2
 
-class OpenPgpApi(private val context: Context, private val service: IOpenPgpService2) {
+class OpenPgpApi(private val context: Context, private val service: IOpenPgpService2) : CoroutineScope {
 
     private val pipeIdGen: AtomicInteger = AtomicInteger()
+
+    override val coroutineContext: CoroutineContext
+        get() = Job() + Dispatchers.IO
 
     interface IOpenPgpCallback {
         fun onReturn(result: Intent?)
     }
 
-    @Suppress("StaticFieldLeak")
-    inner class OpenPgpAsyncTask(
-        private var data: Intent?,
-        private var `is`: InputStream?,
-        private var os: OutputStream?,
-        private var callback: IOpenPgpCallback?
-    ) : AsyncTask<Void?, Int?, Intent>() {
-        override fun doInBackground(vararg params: Void?): Intent? {
-            return executeApi(data, `is`, os)
-        }
-
-        override fun onPostExecute(result: Intent) {
-            callback?.onReturn(result)
-        }
-    }
-
-    fun executeApiAsync(
+    suspend fun executeApiAsync(
         data: Intent?,
         `is`: InputStream?,
         os: OutputStream?,
         callback: IOpenPgpCallback?
     ) {
-        val task = OpenPgpAsyncTask(data, `is`, os, callback)
-        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+        val result = executeApi(data, `is`, os)
+        withContext(Dispatchers.Main) {
+            callback?.onReturn(result)
+        }
     }
 
     fun executeApi(data: Intent?, `is`: InputStream?, os: OutputStream?): Intent? {
