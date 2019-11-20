@@ -13,20 +13,14 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.coroutines.CoroutineContext
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
 import me.msfjarvis.openpgpktx.OpenPgpError
 import org.openintents.openpgp.IOpenPgpService2
 
-class OpenPgpApi(private val context: Context, private val service: IOpenPgpService2) : CoroutineScope {
+class OpenPgpApi(private val context: Context, private val service: IOpenPgpService2) {
 
     private val pipeIdGen: AtomicInteger = AtomicInteger()
-
-    override val coroutineContext: CoroutineContext
-        get() = Job() + Dispatchers.IO
 
     interface IOpenPgpCallback {
         fun onReturn(result: Intent?)
