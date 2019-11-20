@@ -35,9 +35,9 @@ publishing {
     publications {
         gpr(MavenPublication) {
             from components.android
-            groupId 'android-password-store'
+            groupId "$GROUP"
             artifactId 'openpgp-ktx'
-            version '1.0.0-SNAPSHOT'
+            version "$VERSION_NAME"
         }
     }
 }
