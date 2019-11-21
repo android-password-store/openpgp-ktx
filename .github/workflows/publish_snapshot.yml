@@ -1,0 +1,13 @@
+name: "Release per-commit snapshots"
+on: push
+
+jobs:
+  publish-snapshot:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish snapshot
+      run: ./gradlew publish
+      env:
+        USERNAME: msfjarvis
+        PASSWORD: ${{ secrets.PACKAGES_TOKEN }}
