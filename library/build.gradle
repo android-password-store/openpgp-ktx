@@ -28,6 +28,10 @@ android {
     lintOptions {
         disable 'MissingTranslation' // Can't do anything about this
     }
+
+    libraryVariants.all {
+        it.generateBuildConfigProvider.configure { enabled = false }
+    }
 }
 
 publishing {
