@@ -56,10 +56,10 @@ publishing {
 }
 
 dependencies {
-    api 'androidx.annotation:annotation:' + versions.annotation
-    api 'androidx.appcompat:appcompat:' + versions.appcompat
-    api 'androidx.core:core-ktx:' + versions.coreKtx
-    api 'androidx.preference:preference:' + versions.preference
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:' + versions.coroutines
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:' + versions.coroutines
+    api deps.androidx.annotation
+    api deps.androidx.appcompat
+    api deps.androidx.core_ktx
+    api deps.androidx.preference
+    api deps.kotlin.coroutines.core
+    api deps.kotlin.coroutines.android
 }
