@@ -19,7 +19,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.android-password-store:openpgp-ktx:0.1.0'
+    implementation 'com.github.android-password-store:openpgp-ktx:<latest-version>'
 }
 ```
 
