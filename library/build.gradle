@@ -32,6 +32,10 @@ android {
     libraryVariants.all {
         it.generateBuildConfigProvider.configure { enabled = false }
     }
+
+    defaultConfig {
+        consumerProguardFiles 'consumer-proguard-rules.pro'
+    }
 }
 
 publishing {
