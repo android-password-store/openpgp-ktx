@@ -1,5 +1,8 @@
 name: "Release per-commit snapshots"
-on: push
+on:
+  push:
+    branches:
+    - master
 
 jobs:
   publish-snapshot:
