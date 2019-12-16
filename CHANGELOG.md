@@ -1,6 +1,8 @@
 # Changelog
 
 ### [Unreleased]
+- Update library dependencies
+- Embed proguard rules in library
 
 ### [1.0.0] - 2019-11-29
 - Update library dependencies
