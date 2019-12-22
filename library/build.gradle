@@ -8,10 +8,10 @@ plugins {
     id 'digital.wup.android-maven-publish' version '3.6.3'
 }
 
-final def gitHash = { ->
+final def today = { ->
     final def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine 'git', 'describe', '--tags'
+        commandLine 'date', '+%Y%m%d'
         standardOutput = stdout
     }
     stdout.toString().trim()
@@ -54,7 +54,7 @@ publishing {
             from components.android
             groupId "$GROUP"
             artifactId 'openpgp-ktx'
-            version System.env['GITHUB_WORKFLOW'] != null ? "$VERSION_NAME" : "${gitHash()}-SNAPSHOT"
+            version System.env['GITHUB_WORKFLOW'] != null ? "$VERSION_NAME" : "$VERSION_NAME-${today()}"
         }
     }
 }
