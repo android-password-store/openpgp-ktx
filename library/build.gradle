@@ -54,7 +54,7 @@ publishing {
             from components.android
             groupId "$GROUP"
             artifactId 'openpgp-ktx'
-            version System.env['GITHUB_WORKFLOW'] != null ? "$VERSION_NAME" : "$VERSION_NAME-${today()}"
+            version System.env['SNAPSHOT'] == null ? "$VERSION_NAME" : "$VERSION_NAME-${today()}"
         }
     }
 }
