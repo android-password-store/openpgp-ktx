@@ -1,6 +1,8 @@
 # Changelog
 
 ### [Unreleased]
+
+### [1.1.0] - 2019-12-26
 - Update library dependencies
 - Embed proguard rules in library
 
@@ -14,6 +16,7 @@
 ### [0.1.0] - 2019-11-08
 - Initial release
 
-[Unreleased]: https://github.com/android-password-store/openpgp-ktx/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/android-password-store/openpgp-ktx/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/android-password-store/openpgp-ktx/releases/1.1.0
 [1.0.0]: https://github.com/android-password-store/openpgp-ktx/releases/1.0.0
 [0.1.0]: https://github.com/android-password-store/openpgp-ktx/releases/0.1.0
