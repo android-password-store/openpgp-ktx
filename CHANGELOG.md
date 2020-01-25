@@ -1,6 +1,7 @@
 # Changelog
 
 ### [Unreleased]
+- Fix unmarshalling of `OpenPgpError`
 
 ### [1.1.0] - 2019-12-26
 - Update library dependencies
