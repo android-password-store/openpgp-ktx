@@ -21,7 +21,6 @@ import android.util.Log
 import androidx.preference.Preference
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import me.msfjarvis.openpgpktx.OpenPgpError
 import me.msfjarvis.openpgpktx.R
 import me.msfjarvis.openpgpktx.util.OpenPgpApi
 import me.msfjarvis.openpgpktx.util.OpenPgpApi.IOpenPgpCallback
@@ -29,6 +28,7 @@ import me.msfjarvis.openpgpktx.util.OpenPgpServiceConnection
 import me.msfjarvis.openpgpktx.util.OpenPgpServiceConnection.OnBound
 import me.msfjarvis.openpgpktx.util.getAttr
 import org.openintents.openpgp.IOpenPgpService2
+import org.openintents.openpgp.OpenPgpError
 
 class OpenPgpKeyPreference @JvmOverloads constructor(
     context: Context,

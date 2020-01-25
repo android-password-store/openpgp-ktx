@@ -2,7 +2,8 @@
  * Copyright © 2019 The Android Password Authors. All Rights Reserved.
  * SPDX-License-Identifier: GPL-3.0-Only
  */
-package me.msfjarvis.openpgpktx
+@file:JvmName("OpenPgpError")
+package org.openintents.openpgp
 
 import android.os.Parcel
 import android.os.Parcelable

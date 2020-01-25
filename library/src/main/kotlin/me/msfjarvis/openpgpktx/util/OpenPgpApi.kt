@@ -15,8 +15,8 @@ import java.io.OutputStream
 import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import me.msfjarvis.openpgpktx.OpenPgpError
 import org.openintents.openpgp.IOpenPgpService2
+import org.openintents.openpgp.OpenPgpError
 
 class OpenPgpApi(private val context: Context, private val service: IOpenPgpService2) {
 
@@ -51,7 +51,10 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
             result.putExtra(RESULT_CODE, RESULT_CODE_ERROR)
             result.putExtra(
                 RESULT_ERROR,
-                OpenPgpError(OpenPgpError.CLIENT_SIDE_ERROR, e.message)
+                OpenPgpError(
+                    OpenPgpError.CLIENT_SIDE_ERROR,
+                    e.message
+                )
             )
             result
         } finally {
@@ -96,7 +99,10 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
             result.putExtra(RESULT_CODE, RESULT_CODE_ERROR)
             result.putExtra(
                 RESULT_ERROR,
-                OpenPgpError(OpenPgpError.CLIENT_SIDE_ERROR, e.message)
+                OpenPgpError(
+                    OpenPgpError.CLIENT_SIDE_ERROR,
+                    e.message
+                )
             )
             result
         } finally {
