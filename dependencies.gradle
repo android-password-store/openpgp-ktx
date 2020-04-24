@@ -11,16 +11,16 @@ ext.versions = [
 
 ext.deps = [
     gradle_plugin: [
-        android: 'com.android.tools.build:gradle:3.6.1',
-        kotlin: 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.70',
-        spotless: 'com.diffplug.spotless:spotless-plugin-gradle:3.27.2'
+        android: 'com.android.tools.build:gradle:3.6.3',
+        kotlin: 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72',
+        spotless: 'com.diffplug.spotless:spotless-plugin-gradle:3.28.1'
     ],
 
     kotlin: [
-        stdlib8: 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.70',
+        stdlib8: 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72',
         coroutines: [
-            core: 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4',
-            android: 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.4'
+            core: 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5',
+            android: 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5'
         ]
     ],
 
