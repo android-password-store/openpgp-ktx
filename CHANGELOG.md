@@ -2,7 +2,10 @@
 
 ### [Unreleased]
 
-### [1.2.0] - 2019-01-25
+### [2.0.0] - 2020-04-29
+- **BREAKING**: Remove `IOpenPgpCallback` and replace it with a lambda reference.
+
+### [1.2.0] - 2020-01-25
 - Fix unmarshalling of `OpenPgpError`
 
 ### [1.1.0] - 2019-12-26
@@ -19,8 +22,9 @@
 ### [0.1.0] - 2019-11-08
 - Initial release
 
-[Unreleased]: https://github.com/android-password-store/openpgp-ktx/compare/1.2.0...HEAD
-[1.2.0]: https://github.com/android-password-store/openpgp-ktx/releases/1.1.0
+[Unreleased]: https://github.com/android-password-store/openpgp-ktx/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/android-password-store/openpgp-ktx/releases/2.0.0
+[1.2.0]: https://github.com/android-password-store/openpgp-ktx/releases/1.2.0
 [1.1.0]: https://github.com/android-password-store/openpgp-ktx/releases/1.1.0
 [1.0.0]: https://github.com/android-password-store/openpgp-ktx/releases/1.0.0
 [0.1.0]: https://github.com/android-password-store/openpgp-ktx/releases/0.1.0
