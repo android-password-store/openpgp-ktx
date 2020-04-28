@@ -23,7 +23,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import me.msfjarvis.openpgpktx.R
 import me.msfjarvis.openpgpktx.util.OpenPgpApi
-import me.msfjarvis.openpgpktx.util.OpenPgpApi.IOpenPgpCallback
 import me.msfjarvis.openpgpktx.util.OpenPgpServiceConnection
 import me.msfjarvis.openpgpktx.util.OpenPgpServiceConnection.OnBound
 import me.msfjarvis.openpgpktx.util.getAttr
@@ -83,34 +82,31 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
             OpenPgpApi(
                 context,
                 serviceConnection!!.service!!
-            ).executeApiAsync(data, null, null, MyCallback(intentRequestCode))
-        }
-    }
-
-    inner class MyCallback(private var requestCode: Int) : IOpenPgpCallback {
-        override fun onReturn(result: Intent?) {
-            when (result?.getIntExtra(OpenPgpApi.RESULT_CODE, OpenPgpApi.RESULT_CODE_ERROR)) {
-                OpenPgpApi.RESULT_CODE_SUCCESS -> {
-                    val keyId =
-                        result.getLongExtra(OpenPgpApi.EXTRA_SIGN_KEY_ID, NO_KEY)
-                    save(keyId)
-                }
-                OpenPgpApi.RESULT_CODE_USER_INTERACTION_REQUIRED -> {
-                    val pi =
-                        result.getParcelableExtra<PendingIntent>(OpenPgpApi.RESULT_INTENT)
-                    try {
-                        val act = context as Activity
-                        act.startIntentSenderFromChild(
-                            act, pi?.intentSender,
-                            requestCode, null, 0, 0, 0
-                        )
-                    } catch (e: SendIntentException) {
-                        Log.e(TAG, "SendIntentException", e)
+            ).executeApiAsync(data, null, null) { result ->
+                if (result == null) return@executeApiAsync
+                when (result.getIntExtra(OpenPgpApi.RESULT_CODE, OpenPgpApi.RESULT_CODE_ERROR)) {
+                    OpenPgpApi.RESULT_CODE_SUCCESS -> {
+                        val keyId =
+                            result.getLongExtra(OpenPgpApi.EXTRA_SIGN_KEY_ID, NO_KEY)
+                        save(keyId)
                     }
-                }
-                OpenPgpApi.RESULT_CODE_ERROR -> {
-                    val error: OpenPgpError? = result.getParcelableExtra(OpenPgpApi.RESULT_ERROR)
-                    Log.e(TAG, "RESULT_CODE_ERROR: " + error?.message)
+                    OpenPgpApi.RESULT_CODE_USER_INTERACTION_REQUIRED -> {
+                        val pi =
+                            result.getParcelableExtra<PendingIntent>(OpenPgpApi.RESULT_INTENT)
+                        try {
+                            val act = context as Activity
+                            act.startIntentSenderFromChild(
+                                act, pi?.intentSender,
+                                intentRequestCode, null, 0, 0, 0
+                            )
+                        } catch (e: SendIntentException) {
+                            Log.e(TAG, "SendIntentException", e)
+                        }
+                    }
+                    OpenPgpApi.RESULT_CODE_ERROR -> {
+                        val error: OpenPgpError? = result.getParcelableExtra(OpenPgpApi.RESULT_ERROR)
+                        Log.e(TAG, "RESULT_CODE_ERROR: " + error?.message)
+                    }
                 }
             }
         }

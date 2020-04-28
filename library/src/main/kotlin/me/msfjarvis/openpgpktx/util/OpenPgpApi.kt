@@ -22,29 +22,25 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
 
     private val pipeIdGen: AtomicInteger = AtomicInteger()
 
-    interface IOpenPgpCallback {
-        fun onReturn(result: Intent?)
-    }
-
     suspend fun executeApiAsync(
         data: Intent?,
-        `is`: InputStream?,
-        os: OutputStream?,
-        callback: IOpenPgpCallback?
+        inputStream: InputStream?,
+        outputStream: OutputStream?,
+        callback: (intent: Intent?) -> Unit
     ) {
-        val result = executeApi(data, `is`, os)
+        val result = executeApi(data, inputStream, outputStream)
         withContext(Dispatchers.Main) {
-            callback?.onReturn(result)
+            callback.invoke(result)
         }
     }
 
-    fun executeApi(data: Intent?, `is`: InputStream?, os: OutputStream?): Intent? {
+    fun executeApi(data: Intent?, inputStream: InputStream?, outputStream: OutputStream?): Intent? {
         var input: ParcelFileDescriptor? = null
         return try {
-            if (`is` != null) {
-                input = ParcelFileDescriptorUtil.pipeFrom(`is`)
+            if (inputStream != null) {
+                input = ParcelFileDescriptorUtil.pipeFrom(inputStream)
             }
-            executeApi(data, input, os)
+            executeApi(data, input, outputStream)
         } catch (e: Exception) {
             Log.e(TAG, "Exception in executeApi call", e)
             val result = Intent()
