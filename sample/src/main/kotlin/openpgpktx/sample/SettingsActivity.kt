@@ -67,11 +67,11 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
-            providerPref = findPreference<OpenPgpAppPreference>("provider_app")
-            keyPref = findPreference<OpenPgpKeyPreference>("pgp_key")
+            providerPref = findPreference("provider_app")
+            keyPref = findPreference("pgp_key")
             keyPref?.openPgpProvider = preferenceManager.sharedPreferences.getString("provider_app", "")
             // Re-setting default values to show usage and silence IDE warnings about possible weaker access
-            keyPref?.defaultUserId = "Harsh Shandilya <msfjarvis@gmail.com>"
+            keyPref?.defaultUserId = "John Doe <john_doe@example.com>"
             keyPref?.intentRequestCode = 9999
         }
 

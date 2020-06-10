@@ -3,20 +3,21 @@
  * SPDX-License-Identifier: GPL-3.0-Only
  */
 @file:Suppress("Unused")
+
 package me.msfjarvis.openpgpktx.util
 
 import android.content.Context
 import android.content.Intent
 import android.os.ParcelFileDescriptor
 import android.util.Log
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
-import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.openintents.openpgp.IOpenPgpService2
 import org.openintents.openpgp.OpenPgpError
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
+import java.util.concurrent.atomic.AtomicInteger
 
 class OpenPgpApi(private val context: Context, private val service: IOpenPgpService2) {
 
@@ -67,7 +68,11 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
     /**
      * InputStream and OutputStreams are always closed after operating on them!
      */
-    private fun executeApi(data: Intent?, input: ParcelFileDescriptor?, os: OutputStream?): Intent? {
+    private fun executeApi(
+        data: Intent?,
+        input: ParcelFileDescriptor?,
+        os: OutputStream?
+    ): Intent? {
         var output: ParcelFileDescriptor? = null
         return try {
             // always send version from client
@@ -359,8 +364,10 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
 
         // get actual error object from RESULT_ERROR
         const val RESULT_CODE_ERROR = 0
+
         // success!
         const val RESULT_CODE_SUCCESS = 1
+
         // get PendingIntent from RESULT_INTENT, start PendingIntent with startIntentSenderForResult,
         // and execute service method again in onActivityResult
         const val RESULT_CODE_USER_INTERACTION_REQUIRED = 2
@@ -383,6 +390,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
         const val RESULT_METADATA = "metadata"
         const val RESULT_INSECURE_DETAIL_INTENT = "insecure_detail_intent"
         const val RESULT_OVERRIDE_CRYPTO_WARNING = "override_crypto_warning"
+
         // This will be the charset which was specified in the headers of ascii armored input, if any
         const val RESULT_CHARSET = "charset"
 

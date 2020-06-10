@@ -3,14 +3,15 @@
  * SPDX-License-Identifier: GPL-3.0-Only
  */
 @file:JvmName("OpenPgpSignatureResult")
+
 package org.openintents.openpgp
 
 import android.os.Parcel
 import android.os.Parcelable
 import android.os.Parcelable.Creator
+import me.msfjarvis.openpgpktx.util.OpenPgpUtils
 import java.util.Collections
 import java.util.Date
-import me.msfjarvis.openpgpktx.util.OpenPgpUtils
 
 class OpenPgpSignatureResult : Parcelable {
     private val result: Int
@@ -180,36 +181,44 @@ class OpenPgpSignatureResult : Parcelable {
          * system for the parcels sent between the clients and the providers.
          */
         private const val PARCELABLE_VERSION = 5
+
         // content not signed
         const val RESULT_NO_SIGNATURE = -1
+
         // invalid signature!
         const val RESULT_INVALID_SIGNATURE = 0
+
         // successfully verified signature, with confirmed key
         const val RESULT_VALID_KEY_CONFIRMED = 1
+
         // no key was found for this signature verification
         const val RESULT_KEY_MISSING = 2
+
         // successfully verified signature, but with unconfirmed key
         const val RESULT_VALID_KEY_UNCONFIRMED = 3
+
         // key has been revoked -> invalid signature!
         const val RESULT_INVALID_KEY_REVOKED = 4
+
         // key is expired -> invalid signature!
         const val RESULT_INVALID_KEY_EXPIRED = 5
+
         // insecure cryptographic algorithms/protocol -> invalid signature!
         const val RESULT_INVALID_KEY_INSECURE = 6
 
-            override fun createFromParcel(source: Parcel): OpenPgpSignatureResult? {
-                val version = source.readInt() // parcelableVersion
-                val parcelableSize = source.readInt()
-                val startPosition = source.dataPosition()
-                val vr = OpenPgpSignatureResult(source, version)
-                // skip over all fields added in future versions of this parcel
-                source.setDataPosition(startPosition + parcelableSize)
-                return vr
-            }
+        override fun createFromParcel(source: Parcel): OpenPgpSignatureResult? {
+            val version = source.readInt() // parcelableVersion
+            val parcelableSize = source.readInt()
+            val startPosition = source.dataPosition()
+            val vr = OpenPgpSignatureResult(source, version)
+            // skip over all fields added in future versions of this parcel
+            source.setDataPosition(startPosition + parcelableSize)
+            return vr
+        }
 
-            override fun newArray(size: Int): Array<OpenPgpSignatureResult?> {
-                return arrayOfNulls(size)
-            }
+        override fun newArray(size: Int): Array<OpenPgpSignatureResult?> {
+            return arrayOfNulls(size)
+        }
 
         fun createWithValidSignature(
             signatureStatus: Int,

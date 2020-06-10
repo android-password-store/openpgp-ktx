@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: GPL-3.0-Only
  */
 @file:JvmName("OpenPgpAppPreference")
+
 package me.msfjarvis.openpgpktx.preference
 
 import android.content.Context
@@ -16,7 +17,11 @@ import me.msfjarvis.openpgpktx.util.getAttr
 class OpenPgpAppPreference @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = getAttr(context, androidx.preference.R.attr.preferenceStyle, android.R.attr.preferenceStyle),
+    defStyleAttr: Int = getAttr(
+        context,
+        androidx.preference.R.attr.preferenceStyle,
+        android.R.attr.preferenceStyle
+    ),
     defStyleRes: Int = 0
 ) : Preference(context, attrs, defStyleAttr, defStyleRes) {
     private val apps = ProviderUtils.getAppList(context)

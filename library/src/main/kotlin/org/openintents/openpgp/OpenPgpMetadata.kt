@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: GPL-3.0-Only
  */
 @file:JvmName("OpenPgpMetadata")
+
 package org.openintents.openpgp
 
 import android.os.Parcel

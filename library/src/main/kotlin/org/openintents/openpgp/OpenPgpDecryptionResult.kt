@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: GPL-3.0-Only
  */
 @file:JvmName("OpenPgpDecryptionResult")
+
 package org.openintents.openpgp
 
 import android.os.Parcel
@@ -94,8 +95,10 @@ class OpenPgpDecryptionResult() : Parcelable {
 
         // content not encrypted
         const val RESULT_NOT_ENCRYPTED = -1
+
         // insecure!
         const val RESULT_INSECURE = 0
+
         // encrypted
         const val RESULT_ENCRYPTED = 1
         override fun createFromParcel(source: Parcel): OpenPgpDecryptionResult? {

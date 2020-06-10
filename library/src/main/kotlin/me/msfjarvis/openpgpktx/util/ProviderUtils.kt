@@ -16,16 +16,21 @@ object ProviderUtils {
     private const val MARKET_INTENT_URI_BASE = "market://details?id=%s"
     private const val PACKAGE_NAME_APG = "org.thialfihar.android.apg"
     private val PROVIDER_BLACKLIST = arrayOf(PACKAGE_NAME_APG)
-    private val MARKET_INTENT = Intent(Intent.ACTION_VIEW, Uri.parse(String.format(
-        MARKET_INTENT_URI_BASE,
-        OPENKEYCHAIN_PACKAGE
-    )))
+    private val MARKET_INTENT = Intent(
+        Intent.ACTION_VIEW, Uri.parse(
+            String.format(
+                MARKET_INTENT_URI_BASE,
+                OPENKEYCHAIN_PACKAGE
+            )
+        )
+    )
 
     fun getAppList(context: Context): ArrayList<OpenPgpProviderEntry> {
         val apps = ArrayList<OpenPgpProviderEntry>()
 
         // Add the 'None' option
-        apps.add(0,
+        apps.add(
+            0,
             OpenPgpProviderEntry(
                 "",
                 context.resources.getString(R.string.openpgp_list_preference_none),

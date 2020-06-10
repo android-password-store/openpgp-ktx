@@ -4,6 +4,7 @@
  */
 @file:JvmName("OpenPgpKeyPreference")
 @file:Suppress("Unused")
+
 package me.msfjarvis.openpgpktx.preference
 
 import android.app.Activity
@@ -104,7 +105,8 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
                         }
                     }
                     OpenPgpApi.RESULT_CODE_ERROR -> {
-                        val error: OpenPgpError? = result.getParcelableExtra(OpenPgpApi.RESULT_ERROR)
+                        val error: OpenPgpError? =
+                            result.getParcelableExtra(OpenPgpApi.RESULT_ERROR)
                         Log.e(TAG, "RESULT_CODE_ERROR: " + error?.message)
                     }
                 }
