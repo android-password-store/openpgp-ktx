@@ -1,7 +1,7 @@
 name: "Release nightly snapshots"
 on:
-  schedule:
-  - cron: '0 0 * * *'
+  push:
+    - develop
 
 jobs:
   publish-snapshot:

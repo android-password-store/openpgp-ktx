@@ -1,5 +1,5 @@
 name: "CI builds"
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   checks:
