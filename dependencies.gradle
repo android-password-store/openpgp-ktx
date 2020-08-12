@@ -10,15 +10,14 @@ ext.versions = [
 
 ext.deps = [
     gradle_plugin: [
-        android: 'com.android.tools.build:gradle:4.0.0',
-        kotlin: 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72',
+        android: 'com.android.tools.build:gradle:4.0.1',
+        kotlin: 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.0-rc',
     ],
 
     kotlin: [
-        stdlib8: 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72',
         coroutines: [
-            core: 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7',
-            android: 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'
+            core: 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8',
+            android: 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8'
         ]
     ],
 
