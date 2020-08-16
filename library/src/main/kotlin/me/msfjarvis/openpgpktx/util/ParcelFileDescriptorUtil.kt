@@ -12,11 +12,12 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
-object ParcelFileDescriptorUtil {
+internal object ParcelFileDescriptorUtil {
+
     private const val TAG = "PFDUtils"
 
     @Throws(IOException::class)
-    fun pipeFrom(inputStream: InputStream): ParcelFileDescriptor {
+    internal fun pipeFrom(inputStream: InputStream): ParcelFileDescriptor {
         val pipe = ParcelFileDescriptor.createPipe()
         val readSide = pipe[0]
         val writeSide = pipe[1]
@@ -26,14 +27,14 @@ object ParcelFileDescriptorUtil {
     }
 
     @Throws(IOException::class)
-    fun pipeTo(outputStream: OutputStream, output: ParcelFileDescriptor?): TransferThread {
+    internal fun pipeTo(outputStream: OutputStream, output: ParcelFileDescriptor?): TransferThread {
         val t = TransferThread(AutoCloseInputStream(output), outputStream)
         t.start()
         return t
     }
 
-    class TransferThread(val `in`: InputStream, private val out: OutputStream) :
-        Thread("IPC Transfer Thread") {
+    internal class TransferThread(val `in`: InputStream, private val out: OutputStream) : Thread("IPC Transfer Thread") {
+
         override fun run() {
             val buf = ByteArray(4096)
             var len: Int

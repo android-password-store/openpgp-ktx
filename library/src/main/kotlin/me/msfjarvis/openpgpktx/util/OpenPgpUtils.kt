@@ -11,7 +11,8 @@ import java.io.Serializable
 import java.util.Locale
 import java.util.regex.Pattern
 
-object OpenPgpUtils {
+public object OpenPgpUtils {
+
     private val PGP_MESSAGE: Pattern = Pattern.compile(
         ".*?(-----BEGIN PGP MESSAGE-----.*?-----END PGP MESSAGE-----).*",
         Pattern.DOTALL
@@ -20,30 +21,30 @@ object OpenPgpUtils {
         ".*?(-----BEGIN PGP SIGNED MESSAGE-----.*?-----BEGIN PGP SIGNATURE-----.*?-----END PGP SIGNATURE-----).*",
         Pattern.DOTALL
     )
-    const val PARSE_RESULT_NO_PGP = -1
-    const val PARSE_RESULT_MESSAGE = 0
-    const val PARSE_RESULT_SIGNED_MESSAGE = 1
+    private val USER_ID_PATTERN = Pattern.compile("^(.*?)(?: \\((.*)\\))?(?: <(.*)>)?$")
+    private val EMAIL_PATTERN = Pattern.compile("^<?\"?([^<>\"]*@[^<>\"]*\\.[^<>\"]*)\"?>?$")
+    public const val PARSE_RESULT_NO_PGP: Int = -1
+    public const val PARSE_RESULT_MESSAGE: Int = 0
+    public const val PARSE_RESULT_SIGNED_MESSAGE: Int = 1
 
-    fun parseMessage(message: String): Int {
+    public fun parseMessage(message: String): Int {
         val matcherSigned = PGP_SIGNED_MESSAGE.matcher(message)
         val matcherMessage = PGP_MESSAGE.matcher(message)
-        return if (matcherMessage.matches()) {
-            PARSE_RESULT_MESSAGE
-        } else if (matcherSigned.matches()) {
-            PARSE_RESULT_SIGNED_MESSAGE
-        } else {
-            PARSE_RESULT_NO_PGP
+        return when {
+            matcherMessage.matches() -> PARSE_RESULT_MESSAGE
+            matcherSigned.matches() -> PARSE_RESULT_SIGNED_MESSAGE
+            else -> PARSE_RESULT_NO_PGP
         }
     }
 
-    fun isAvailable(context: Context): Boolean {
+    public fun isAvailable(context: Context): Boolean {
         val intent = Intent(OpenPgpApi.SERVICE_INTENT_2)
         val resInfo =
             context.packageManager.queryIntentServices(intent, 0)
         return resInfo.isNotEmpty()
     }
 
-    fun convertKeyIdToHex(keyId: Long): String {
+    public fun convertKeyIdToHex(keyId: Long): String {
         return "0x" + convertKeyIdToHex32bit(keyId shr 32) + convertKeyIdToHex32bit(
             keyId
         )
@@ -58,15 +59,11 @@ object OpenPgpUtils {
         return hexString
     }
 
-    private val USER_ID_PATTERN = Pattern.compile("^(.*?)(?: \\((.*)\\))?(?: <(.*)>)?$")
-    private val EMAIL_PATTERN =
-        Pattern.compile("^<?\"?([^<>\"]*@[^<>\"]*\\.[^<>\"]*)\"?>?$")
-
     /**
      * Splits userId string into naming part, email part, and comment part.
      * See SplitUserIdTest for examples.
      */
-    fun splitUserId(userId: String): UserId {
+    public fun splitUserId(userId: String): UserId {
         if (!TextUtils.isEmpty(userId)) {
             val matcher = USER_ID_PATTERN.matcher(userId)
             if (matcher.matches()) {
@@ -96,7 +93,7 @@ object OpenPgpUtils {
     /**
      * Returns a composed user id. Returns null if name, email and comment are empty.
      */
-    fun createUserId(userId: UserId): String? {
+    public fun createUserId(userId: UserId): String? {
         val userIdBuilder = StringBuilder()
         if (!TextUtils.isEmpty(userId.name)) {
             userIdBuilder.append(userId.name)
@@ -114,6 +111,5 @@ object OpenPgpUtils {
         return if (userIdBuilder.isEmpty()) null else userIdBuilder.toString()
     }
 
-    class UserId(val name: String?, val email: String?, val comment: String?) :
-        Serializable
+    public class UserId(public val name: String?, public val email: String?, public val comment: String?) : Serializable
 }

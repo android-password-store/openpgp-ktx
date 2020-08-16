@@ -10,21 +10,22 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.os.Parcelable.Creator
 
-class OpenPgpError() : Parcelable {
-    var errorId = 0
-    var message: String? = null
+public class OpenPgpError() : Parcelable {
 
-    constructor(parcel: Parcel) : this() {
+    public var errorId: Int = 0
+    public var message: String? = null
+
+    private constructor(parcel: Parcel) : this() {
         errorId = parcel.readInt()
         message = parcel.readString()
     }
 
-    constructor(errorId: Int, message: String?) : this() {
+    internal constructor(errorId: Int, message: String?) : this() {
         this.errorId = errorId
         this.message = message
     }
 
-    constructor(b: OpenPgpError) : this() {
+    internal constructor(b: OpenPgpError) : this() {
         errorId = b.errorId
         message = b.message
     }
@@ -36,7 +37,7 @@ class OpenPgpError() : Parcelable {
     override fun writeToParcel(dest: Parcel, flags: Int) {
         /**
          * NOTE: When adding fields in the process of updating this API, make sure to bump
-         * [.PARCELABLE_VERSION].
+         * [PARCELABLE_VERSION].
          */
         dest.writeInt(PARCELABLE_VERSION)
         // Inject a placeholder that will store the parcel size from this point on
@@ -54,21 +55,22 @@ class OpenPgpError() : Parcelable {
         dest.setDataPosition(startPosition + parcelableSize)
     }
 
-    companion object CREATOR : Creator<OpenPgpError> {
+    public companion object CREATOR : Creator<OpenPgpError> {
+
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning
          * system for the parcels sent between the clients and the providers.
          */
-        const val PARCELABLE_VERSION = 1
+        private const val PARCELABLE_VERSION = 1
 
         // possible values for errorId
-        const val CLIENT_SIDE_ERROR = -1
-        const val GENERIC_ERROR = 0
-        const val INCOMPATIBLE_API_VERSIONS = 1
-        const val NO_OR_WRONG_PASSPHRASE = 2
-        const val NO_USER_IDS = 3
-        const val OPPORTUNISTIC_MISSING_KEYS = 4
+        public const val CLIENT_SIDE_ERROR: Int = -1
+        public const val GENERIC_ERROR: Int = 0
+        public const val INCOMPATIBLE_API_VERSIONS: Int = 1
+        public const val NO_OR_WRONG_PASSPHRASE: Int = 2
+        public const val NO_USER_IDS: Int = 3
+        public const val OPPORTUNISTIC_MISSING_KEYS: Int = 4
 
         override fun createFromParcel(source: Parcel): OpenPgpError? {
             source.readInt() // parcelableVersion

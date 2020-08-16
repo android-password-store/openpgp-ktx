@@ -10,15 +10,15 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.os.Parcelable.Creator
 
-class OpenPgpMetadata() : Parcelable {
+public class OpenPgpMetadata() : Parcelable {
 
-    var filename: String? = null
-    var mimeType: String? = null
-    var charset: String? = null
-    var modificationTime: Long = 0
-    var originalSize: Long = 0
+    public var filename: String? = null
+    public var mimeType: String? = null
+    public var charset: String? = null
+    public var modificationTime: Long = 0
+    public var originalSize: Long = 0
 
-    constructor(
+    private constructor(
         filename: String?,
         mimeType: String?,
         modificationTime: Long,
@@ -32,7 +32,7 @@ class OpenPgpMetadata() : Parcelable {
         this.charset = charset
     }
 
-    constructor(
+    private constructor(
         filename: String?,
         mimeType: String?,
         modificationTime: Long,
@@ -44,7 +44,7 @@ class OpenPgpMetadata() : Parcelable {
         this.originalSize = originalSize
     }
 
-    constructor(b: OpenPgpMetadata) : this() {
+    private constructor(b: OpenPgpMetadata) : this() {
         filename = b.filename
         mimeType = b.mimeType
         modificationTime = b.modificationTime
@@ -58,7 +58,7 @@ class OpenPgpMetadata() : Parcelable {
     override fun writeToParcel(dest: Parcel, flags: Int) {
         /**
          * NOTE: When adding fields in the process of updating this API, make sure to bump
-         * [.PARCELABLE_VERSION].
+         * [PARCELABLE_VERSION].
          */
         dest.writeInt(PARCELABLE_VERSION)
         // Inject a placeholder that will store the parcel size from this point on
@@ -80,13 +80,15 @@ class OpenPgpMetadata() : Parcelable {
         dest.setDataPosition(startPosition + parcelableSize)
     }
 
-    companion object CREATOR : Creator<OpenPgpMetadata> {
+    public companion object CREATOR : Creator<OpenPgpMetadata> {
+
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning
          * system for the parcels sent between the clients and the providers.
          */
-        const val PARCELABLE_VERSION = 2
+        private const val PARCELABLE_VERSION = 2
+
         override fun createFromParcel(source: Parcel): OpenPgpMetadata? {
             val version = source.readInt() // parcelableVersion
             val parcelableSize = source.readInt()

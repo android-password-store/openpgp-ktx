@@ -14,7 +14,7 @@ import me.msfjarvis.openpgpktx.R
 import me.msfjarvis.openpgpktx.util.ProviderUtils
 import me.msfjarvis.openpgpktx.util.getAttr
 
-class OpenPgpAppPreference @JvmOverloads constructor(
+public class OpenPgpAppPreference @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = getAttr(
@@ -24,6 +24,7 @@ class OpenPgpAppPreference @JvmOverloads constructor(
     ),
     defStyleRes: Int = 0
 ) : Preference(context, attrs, defStyleAttr, defStyleRes) {
+
     private val apps = ProviderUtils.getAppList(context)
     private val defaultName = context.resources.getString(R.string.openpgp_list_preference_none)
 

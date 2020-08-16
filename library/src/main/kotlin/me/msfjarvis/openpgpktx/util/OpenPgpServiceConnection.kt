@@ -11,16 +11,17 @@ import android.content.ServiceConnection
 import android.os.IBinder
 import org.openintents.openpgp.IOpenPgpService2
 
-class OpenPgpServiceConnection(context: Context, providerPackageName: String?) {
+public class OpenPgpServiceConnection(context: Context, providerPackageName: String?) {
 
     // callback interface
-    interface OnBound {
-        fun onBound(service: IOpenPgpService2)
-        fun onError(e: Exception)
+    public interface OnBound {
+
+        public fun onBound(service: IOpenPgpService2)
+        public fun onError(e: Exception)
     }
 
     private val mApplicationContext: Context = context.applicationContext
-    var service: IOpenPgpService2? = null
+    public var service: IOpenPgpService2? = null
         private set
     private val mProviderPackageName: String? = providerPackageName
     private var mOnBoundListener: OnBound? = null
@@ -33,7 +34,7 @@ class OpenPgpServiceConnection(context: Context, providerPackageName: String?) {
      * e.g., "org.sufficientlysecure.keychain"
      * @param onBoundListener callback, executed when connection to service has been established
      */
-    constructor(
+    public constructor(
         context: Context,
         providerPackageName: String?,
         onBoundListener: OnBound?
@@ -41,7 +42,7 @@ class OpenPgpServiceConnection(context: Context, providerPackageName: String?) {
         mOnBoundListener = onBoundListener
     }
 
-    val isBound: Boolean
+    public val isBound: Boolean
         get() = service != null
 
     private val mServiceConnection: ServiceConnection = object : ServiceConnection {
@@ -57,10 +58,8 @@ class OpenPgpServiceConnection(context: Context, providerPackageName: String?) {
 
     /**
      * If not already bound, bind to service!
-     *
-     * @return
      */
-    fun bindToService() {
+    public fun bindToService() {
         if (service == null) {
             // if not already bound...
             try {
@@ -83,7 +82,7 @@ class OpenPgpServiceConnection(context: Context, providerPackageName: String?) {
         }
     }
 
-    fun unbindFromService() {
+    public fun unbindFromService() {
         mApplicationContext.unbindService(mServiceConnection)
     }
 }

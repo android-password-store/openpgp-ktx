@@ -9,12 +9,13 @@ import android.os.Parcelable
 import android.os.Parcelable.Creator
 import java.util.Date
 
-class AutocryptPeerUpdate() : Parcelable {
+public class AutocryptPeerUpdate() : Parcelable {
+
     private var keyData: ByteArray? = null
     private var effectiveDate: Date? = null
     private lateinit var preferEncrypt: PreferEncrypt
 
-    private constructor(
+    internal constructor(
         keyData: ByteArray?,
         effectiveDate: Date?,
         preferEncrypt: PreferEncrypt
@@ -30,26 +31,26 @@ class AutocryptPeerUpdate() : Parcelable {
         preferEncrypt = PreferEncrypt.values()[source.readInt()]
     }
 
-    fun createAutocryptPeerUpdate(
+    public fun createAutocryptPeerUpdate(
         keyData: ByteArray?,
         timestamp: Date?
     ): AutocryptPeerUpdate {
         return AutocryptPeerUpdate(keyData, timestamp, PreferEncrypt.NOPREFERENCE)
     }
 
-    fun getKeyData(): ByteArray? {
+    public fun getKeyData(): ByteArray? {
         return keyData
     }
 
-    fun hasKeyData(): Boolean {
+    public fun hasKeyData(): Boolean {
         return keyData != null
     }
 
-    fun getEffectiveDate(): Date? {
+    public fun getEffectiveDate(): Date? {
         return effectiveDate
     }
 
-    fun getPreferEncrypt(): PreferEncrypt? {
+    public fun getPreferEncrypt(): PreferEncrypt? {
         return preferEncrypt
     }
 
@@ -84,7 +85,8 @@ class AutocryptPeerUpdate() : Parcelable {
         dest.setDataPosition(startPosition + parcelableSize)
     }
 
-    companion object CREATOR : Creator<AutocryptPeerUpdate> {
+    public companion object CREATOR : Creator<AutocryptPeerUpdate> {
+
         private const val PARCELABLE_VERSION = 1
         override fun createFromParcel(source: Parcel): AutocryptPeerUpdate? {
             val version = source.readInt() // parcelableVersion
@@ -101,7 +103,7 @@ class AutocryptPeerUpdate() : Parcelable {
         }
     }
 
-    enum class PreferEncrypt {
+    public enum class PreferEncrypt {
         NOPREFERENCE, MUTUAL
     }
 }

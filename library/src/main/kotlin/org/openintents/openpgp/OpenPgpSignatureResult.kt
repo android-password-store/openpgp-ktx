@@ -9,11 +9,11 @@ package org.openintents.openpgp
 import android.os.Parcel
 import android.os.Parcelable
 import android.os.Parcelable.Creator
-import me.msfjarvis.openpgpktx.util.OpenPgpUtils
-import java.util.Collections
 import java.util.Date
+import me.msfjarvis.openpgpktx.util.OpenPgpUtils
 
-class OpenPgpSignatureResult : Parcelable {
+public class OpenPgpSignatureResult : Parcelable {
+
     private val result: Int
     private val keyId: Long
     private val primaryUserId: String?
@@ -59,7 +59,7 @@ class OpenPgpSignatureResult : Parcelable {
         if (version > 2) {
             senderStatusResult = readEnumWithNullAndFallback(
                 source,
-                SenderStatusResult.values,
+                SenderStatusResult.values(),
                 SenderStatusResult.UNKNOWN
             )
             confirmedUserIds = source.createStringArrayList()
@@ -75,7 +75,7 @@ class OpenPgpSignatureResult : Parcelable {
         autocryptPeerentityResult = if (version > 4) {
             readEnumWithNullAndFallback(
                 source,
-                AutocryptPeerResult.values,
+                AutocryptPeerResult.values(),
                 null
             )
         } else {
@@ -83,12 +83,12 @@ class OpenPgpSignatureResult : Parcelable {
         }
     }
 
-    fun getUserIds(): List<String> {
-        return Collections.unmodifiableList(userIds)
+    public fun getUserIds(): List<String> {
+        return (userIds ?: arrayListOf()).toList()
     }
 
-    fun getConfirmedUserIds(): List<String> {
-        return Collections.unmodifiableList(confirmedUserIds)
+    public fun getConfirmedUserIds(): List<String> {
+        return (confirmedUserIds ?: arrayListOf()).toList()
     }
 
     override fun describeContents(): Int {
@@ -142,39 +142,30 @@ class OpenPgpSignatureResult : Parcelable {
     }
 
     @Deprecated("")
-    fun withSignatureOnlyFlag(signatureOnly: Boolean): OpenPgpSignatureResult {
+    public fun withSignatureOnlyFlag(signatureOnly: Boolean): OpenPgpSignatureResult {
         return OpenPgpSignatureResult(
             result, primaryUserId, keyId, userIds, confirmedUserIds,
             senderStatusResult, signatureOnly, signatureTimestamp, autocryptPeerentityResult
         )
     }
 
-    fun withAutocryptPeerResult(autocryptPeerentityResult: AutocryptPeerResult?): OpenPgpSignatureResult {
+    public fun withAutocryptPeerResult(autocryptPeerentityResult: AutocryptPeerResult?): OpenPgpSignatureResult {
         return OpenPgpSignatureResult(
             result, primaryUserId, keyId, userIds, confirmedUserIds,
             senderStatusResult, null, signatureTimestamp, autocryptPeerentityResult
         )
     }
 
-    enum class SenderStatusResult {
+    public enum class SenderStatusResult {
         UNKNOWN, USER_ID_CONFIRMED, USER_ID_UNCONFIRMED, USER_ID_MISSING;
-
-        companion object {
-            val values =
-                values()
-        }
     }
 
-    enum class AutocryptPeerResult {
+    public enum class AutocryptPeerResult {
         OK, NEW, MISMATCH;
-
-        companion object {
-            val values =
-                values()
-        }
     }
 
-    companion object CREATOR : Creator<OpenPgpSignatureResult> {
+    public companion object CREATOR : Creator<OpenPgpSignatureResult> {
+
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning
@@ -183,28 +174,28 @@ class OpenPgpSignatureResult : Parcelable {
         private const val PARCELABLE_VERSION = 5
 
         // content not signed
-        const val RESULT_NO_SIGNATURE = -1
+        public const val RESULT_NO_SIGNATURE: Int = -1
 
         // invalid signature!
-        const val RESULT_INVALID_SIGNATURE = 0
+        public const val RESULT_INVALID_SIGNATURE: Int = 0
 
         // successfully verified signature, with confirmed key
-        const val RESULT_VALID_KEY_CONFIRMED = 1
+        public const val RESULT_VALID_KEY_CONFIRMED: Int = 1
 
         // no key was found for this signature verification
-        const val RESULT_KEY_MISSING = 2
+        public const val RESULT_KEY_MISSING: Int = 2
 
         // successfully verified signature, but with unconfirmed key
-        const val RESULT_VALID_KEY_UNCONFIRMED = 3
+        public const val RESULT_VALID_KEY_UNCONFIRMED: Int = 3
 
         // key has been revoked -> invalid signature!
-        const val RESULT_INVALID_KEY_REVOKED = 4
+        public const val RESULT_INVALID_KEY_REVOKED: Int = 4
 
         // key is expired -> invalid signature!
-        const val RESULT_INVALID_KEY_EXPIRED = 5
+        public const val RESULT_INVALID_KEY_EXPIRED: Int = 5
 
         // insecure cryptographic algorithms/protocol -> invalid signature!
-        const val RESULT_INVALID_KEY_INSECURE = 6
+        public const val RESULT_INVALID_KEY_INSECURE: Int = 6
 
         override fun createFromParcel(source: Parcel): OpenPgpSignatureResult? {
             val version = source.readInt() // parcelableVersion
@@ -220,7 +211,7 @@ class OpenPgpSignatureResult : Parcelable {
             return arrayOfNulls(size)
         }
 
-        fun createWithValidSignature(
+        public fun createWithValidSignature(
             signatureStatus: Int,
             primaryUserId: String?,
             keyId: Long,
@@ -236,7 +227,7 @@ class OpenPgpSignatureResult : Parcelable {
             )
         }
 
-        fun createWithNoSignature(): OpenPgpSignatureResult {
+        public fun createWithNoSignature(): OpenPgpSignatureResult {
             return OpenPgpSignatureResult(
                 RESULT_NO_SIGNATURE,
                 null,
@@ -250,7 +241,7 @@ class OpenPgpSignatureResult : Parcelable {
             )
         }
 
-        fun createWithKeyMissing(keyId: Long, signatureTimestamp: Date?): OpenPgpSignatureResult {
+        public fun createWithKeyMissing(keyId: Long, signatureTimestamp: Date?): OpenPgpSignatureResult {
             return OpenPgpSignatureResult(
                 RESULT_KEY_MISSING,
                 null,
@@ -264,7 +255,7 @@ class OpenPgpSignatureResult : Parcelable {
             )
         }
 
-        fun createWithInvalidSignature(): OpenPgpSignatureResult {
+        public fun createWithInvalidSignature(): OpenPgpSignatureResult {
             return OpenPgpSignatureResult(
                 RESULT_INVALID_SIGNATURE,
                 null,

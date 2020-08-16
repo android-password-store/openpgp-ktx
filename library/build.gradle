@@ -33,6 +33,14 @@ android {
     defaultConfig {
         consumerProguardFiles 'consumer-proguard-rules.pro'
     }
+
+    kotlin.explicitApi = 'strict'
+
+    kotlinOptions {
+      freeCompilerArgs += [
+          '-Xexplicit-api=strict',
+      ]
+    }
 }
 
 afterEvaluate {
