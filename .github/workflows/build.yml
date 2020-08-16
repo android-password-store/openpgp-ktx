@@ -6,4 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - run: ./gradlew spotlessCheck build lint
+    - run: ./gradlew build lint
