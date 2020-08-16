@@ -81,6 +81,7 @@ public class OpenPgpMetadata() : Parcelable {
     }
 
     private companion object CREATOR : Creator<OpenPgpMetadata> {
+
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning

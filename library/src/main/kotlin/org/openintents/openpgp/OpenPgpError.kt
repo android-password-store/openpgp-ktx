@@ -11,6 +11,7 @@ import android.os.Parcelable
 import android.os.Parcelable.Creator
 
 public class OpenPgpError() : Parcelable {
+
     public var errorId: Int = 0
     public var message: String? = null
 
@@ -55,6 +56,7 @@ public class OpenPgpError() : Parcelable {
     }
 
     internal companion object CREATOR : Creator<OpenPgpError> {
+
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning

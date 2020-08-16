@@ -13,6 +13,7 @@ import java.io.InputStream
 import java.io.OutputStream
 
 internal object ParcelFileDescriptorUtil {
+
     private const val TAG = "PFDUtils"
 
     @Throws(IOException::class)
@@ -33,6 +34,7 @@ internal object ParcelFileDescriptorUtil {
     }
 
     internal class TransferThread(val `in`: InputStream, private val out: OutputStream) : Thread("IPC Transfer Thread") {
+
         override fun run() {
             val buf = ByteArray(4096)
             var len: Int

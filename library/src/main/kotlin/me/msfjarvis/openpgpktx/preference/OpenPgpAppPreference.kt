@@ -24,6 +24,7 @@ public class OpenPgpAppPreference @JvmOverloads constructor(
     ),
     defStyleRes: Int = 0
 ) : Preference(context, attrs, defStyleAttr, defStyleRes) {
+
     private val apps = ProviderUtils.getAppList(context)
     private val defaultName = context.resources.getString(R.string.openpgp_list_preference_none)
 

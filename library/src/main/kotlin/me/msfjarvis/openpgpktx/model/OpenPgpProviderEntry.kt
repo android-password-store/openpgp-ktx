@@ -13,5 +13,6 @@ internal data class OpenPgpProviderEntry(
     val icon: Drawable? = null,
     val intent: Intent? = null
 ) {
+
     override fun toString(): String = simpleName
 }

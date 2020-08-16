@@ -11,6 +11,7 @@ import android.os.Parcelable
 import android.os.Parcelable.Creator
 
 public class OpenPgpDecryptionResult() : Parcelable {
+
     private var result = 0
     private var sessionKey: ByteArray? = null
     private var decryptedSessionKey: ByteArray? = null
@@ -86,6 +87,7 @@ public class OpenPgpDecryptionResult() : Parcelable {
     }
 
     private companion object CREATOR : Creator<OpenPgpDecryptionResult> {
+
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning

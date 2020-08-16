@@ -36,6 +36,7 @@ public class OpenPgpKeyPreference @JvmOverloads constructor(
     defStyleAttr: Int = getAttr(context, R.attr.preferenceStyle, android.R.attr.preferenceStyle),
     defStyleRes: Int = 0
 ) : Preference(context, attrs, defStyleAttr, defStyleRes) {
+
     private var keyId: Long = 0
     private var openPgpProvider: String? = null
         set(value) {
@@ -202,6 +203,7 @@ public class OpenPgpKeyPreference @JvmOverloads constructor(
     }
 
     private companion object {
+
         private const val NO_KEY = 0L
         private const val TAG = "OpenPgpKeyPreference"
     }
@@ -214,6 +216,7 @@ public class OpenPgpKeyPreference @JvmOverloads constructor(
      * It is important to always call through to super methods.
      */
     internal class SavedState : BaseSavedState {
+
         internal var keyId: Long = 0
         internal var openPgpProvider: String? = null
         internal var defaultUserId: String? = null
@@ -234,6 +237,7 @@ public class OpenPgpKeyPreference @JvmOverloads constructor(
         constructor(superState: Parcelable?) : super(superState)
 
         companion object CREATOR : Creator<SavedState> {
+
             override fun createFromParcel(`in`: Parcel): SavedState? {
                 return SavedState(`in`)
             }

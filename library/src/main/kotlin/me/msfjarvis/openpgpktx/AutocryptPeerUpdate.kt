@@ -10,6 +10,7 @@ import android.os.Parcelable.Creator
 import java.util.Date
 
 public class AutocryptPeerUpdate() : Parcelable {
+
     private var keyData: ByteArray? = null
     private var effectiveDate: Date? = null
     private lateinit var preferEncrypt: PreferEncrypt
@@ -85,6 +86,7 @@ public class AutocryptPeerUpdate() : Parcelable {
     }
 
     internal companion object CREATOR : Creator<AutocryptPeerUpdate> {
+
         private const val PARCELABLE_VERSION = 1
         override fun createFromParcel(source: Parcel): AutocryptPeerUpdate? {
             val version = source.readInt() // parcelableVersion

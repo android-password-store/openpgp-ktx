@@ -15,6 +15,7 @@ public class OpenPgpServiceConnection(context: Context, providerPackageName: Str
 
     // callback interface
     public interface OnBound {
+
         public fun onBound(service: IOpenPgpService2)
         public fun onError(e: Exception)
     }

@@ -9,10 +9,11 @@ package org.openintents.openpgp
 import android.os.Parcel
 import android.os.Parcelable
 import android.os.Parcelable.Creator
-import me.msfjarvis.openpgpktx.util.OpenPgpUtils
 import java.util.Date
+import me.msfjarvis.openpgpktx.util.OpenPgpUtils
 
 public class OpenPgpSignatureResult : Parcelable {
+
     private val result: Int
     private val keyId: Long
     private val primaryUserId: String?
@@ -164,6 +165,7 @@ public class OpenPgpSignatureResult : Parcelable {
     }
 
     private companion object CREATOR : Creator<OpenPgpSignatureResult> {
+
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning

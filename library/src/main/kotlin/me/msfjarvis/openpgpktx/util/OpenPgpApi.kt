@@ -10,14 +10,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.ParcelFileDescriptor
 import android.util.Log
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import org.openintents.openpgp.IOpenPgpService2
-import org.openintents.openpgp.OpenPgpError
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.concurrent.atomic.AtomicInteger
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.openintents.openpgp.IOpenPgpService2
+import org.openintents.openpgp.OpenPgpError
 
 public class OpenPgpApi(private val context: Context, private val service: IOpenPgpService2) {
 
@@ -119,6 +119,7 @@ public class OpenPgpApi(private val context: Context, private val service: IOpen
     }
 
     public companion object {
+
         private const val TAG = "OpenPgp API"
 
         public const val SERVICE_INTENT_2: String = "org.openintents.openpgp.IOpenPgpService2"
