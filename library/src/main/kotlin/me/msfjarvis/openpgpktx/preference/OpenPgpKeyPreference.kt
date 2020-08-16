@@ -38,13 +38,13 @@ public class OpenPgpKeyPreference @JvmOverloads constructor(
 ) : Preference(context, attrs, defStyleAttr, defStyleRes) {
 
     private var keyId: Long = 0
-    private var openPgpProvider: String? = null
+    public var openPgpProvider: String? = null
         set(value) {
             field = value
             updateEnabled()
         }
-    private var defaultUserId: String? = null
-    private var intentRequestCode = 9999
+    public var defaultUserId: String? = null
+    public var intentRequestCode: Int = 9999
     private var serviceConnection: OpenPgpServiceConnection? = null
 
     override fun getSummary(): CharSequence? {
