@@ -35,23 +35,25 @@ android {
     }
 }
 
-publishing {
-    repositories {
-        maven {
-            name = 'GitHubPackages'
-            url = uri('https://maven.pkg.github.com/android-password-store/openpgp-ktx')
-            credentials {
-                username = project.findProperty('gpr.user') ?: System.getenv('USERNAME')
-                password = project.findProperty('gpr.key') ?: System.getenv('PASSWORD')
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                name = 'GitHubPackages'
+                url = uri('https://maven.pkg.github.com/android-password-store/openpgp-ktx')
+                credentials {
+                    username = project.findProperty('gpr.user') ?: System.getenv('USERNAME')
+                    password = project.findProperty('gpr.key') ?: System.getenv('PASSWORD')
+                }
             }
         }
-    }
-    publications {
-        gpr(MavenPublication) {
-            from components.release
-            groupId "$GROUP"
-            artifactId 'openpgp-ktx'
-            version System.env['SNAPSHOT'] == null ? "$VERSION_NAME" : "$VERSION_NAME-${today()}"
+        publications {
+            gpr(MavenPublication) {
+                from components.release
+                groupId "$GROUP"
+                artifactId 'openpgp-ktx'
+                version System.env['SNAPSHOT'] == null ? "$VERSION_NAME" : "$VERSION_NAME-${today()}"
+            }
         }
     }
 }
