@@ -37,13 +37,7 @@ subprojects {
             sourceCompatibility = JavaVersion.VERSION_1_8
             targetCompatibility = JavaVersion.VERSION_1_8
         }
-        sourceSets {
-            main {
-                java {
-                    srcDirs 'src/main/kotlin'
-                }
-            }
-        }
+        sourceSets.main.java.srcDirs 'src/main/kotlin'
     }
     tasks.withType(JavaCompile) {
         options.compilerArgs << '-Xlint:unchecked'
@@ -52,7 +46,7 @@ subprojects {
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
         kotlinOptions {
-            jvmTarget = '1.8'
+            jvmTarget = JavaVersion.VERSION_1_8
         }
     }
 }
