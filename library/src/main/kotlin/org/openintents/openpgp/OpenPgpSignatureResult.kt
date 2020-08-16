@@ -10,10 +10,9 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.os.Parcelable.Creator
 import me.msfjarvis.openpgpktx.util.OpenPgpUtils
-import java.util.Collections
 import java.util.Date
 
-class OpenPgpSignatureResult : Parcelable {
+public class OpenPgpSignatureResult : Parcelable {
     private val result: Int
     private val keyId: Long
     private val primaryUserId: String?
@@ -59,7 +58,7 @@ class OpenPgpSignatureResult : Parcelable {
         if (version > 2) {
             senderStatusResult = readEnumWithNullAndFallback(
                 source,
-                SenderStatusResult.values,
+                SenderStatusResult.values(),
                 SenderStatusResult.UNKNOWN
             )
             confirmedUserIds = source.createStringArrayList()
@@ -75,7 +74,7 @@ class OpenPgpSignatureResult : Parcelable {
         autocryptPeerentityResult = if (version > 4) {
             readEnumWithNullAndFallback(
                 source,
-                AutocryptPeerResult.values,
+                AutocryptPeerResult.values(),
                 null
             )
         } else {
@@ -83,12 +82,12 @@ class OpenPgpSignatureResult : Parcelable {
         }
     }
 
-    fun getUserIds(): List<String> {
-        return Collections.unmodifiableList(userIds)
+    public fun getUserIds(): List<String> {
+        return (userIds ?: arrayListOf()).toList()
     }
 
-    fun getConfirmedUserIds(): List<String> {
-        return Collections.unmodifiableList(confirmedUserIds)
+    public fun getConfirmedUserIds(): List<String> {
+        return (confirmedUserIds ?: arrayListOf()).toList()
     }
 
     override fun describeContents(): Int {
@@ -142,39 +141,29 @@ class OpenPgpSignatureResult : Parcelable {
     }
 
     @Deprecated("")
-    fun withSignatureOnlyFlag(signatureOnly: Boolean): OpenPgpSignatureResult {
+    public fun withSignatureOnlyFlag(signatureOnly: Boolean): OpenPgpSignatureResult {
         return OpenPgpSignatureResult(
             result, primaryUserId, keyId, userIds, confirmedUserIds,
             senderStatusResult, signatureOnly, signatureTimestamp, autocryptPeerentityResult
         )
     }
 
-    fun withAutocryptPeerResult(autocryptPeerentityResult: AutocryptPeerResult?): OpenPgpSignatureResult {
+    public fun withAutocryptPeerResult(autocryptPeerentityResult: AutocryptPeerResult?): OpenPgpSignatureResult {
         return OpenPgpSignatureResult(
             result, primaryUserId, keyId, userIds, confirmedUserIds,
             senderStatusResult, null, signatureTimestamp, autocryptPeerentityResult
         )
     }
 
-    enum class SenderStatusResult {
+    public enum class SenderStatusResult {
         UNKNOWN, USER_ID_CONFIRMED, USER_ID_UNCONFIRMED, USER_ID_MISSING;
-
-        companion object {
-            val values =
-                values()
-        }
     }
 
-    enum class AutocryptPeerResult {
+    public enum class AutocryptPeerResult {
         OK, NEW, MISMATCH;
-
-        companion object {
-            val values =
-                values()
-        }
     }
 
-    companion object CREATOR : Creator<OpenPgpSignatureResult> {
+    private companion object CREATOR : Creator<OpenPgpSignatureResult> {
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning

@@ -10,21 +10,21 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.os.Parcelable.Creator
 
-class OpenPgpError() : Parcelable {
-    var errorId = 0
-    var message: String? = null
+public class OpenPgpError() : Parcelable {
+    public var errorId: Int = 0
+    public var message: String? = null
 
-    constructor(parcel: Parcel) : this() {
+    private constructor(parcel: Parcel) : this() {
         errorId = parcel.readInt()
         message = parcel.readString()
     }
 
-    constructor(errorId: Int, message: String?) : this() {
+    internal constructor(errorId: Int, message: String?) : this() {
         this.errorId = errorId
         this.message = message
     }
 
-    constructor(b: OpenPgpError) : this() {
+    internal constructor(b: OpenPgpError) : this() {
         errorId = b.errorId
         message = b.message
     }
@@ -36,7 +36,7 @@ class OpenPgpError() : Parcelable {
     override fun writeToParcel(dest: Parcel, flags: Int) {
         /**
          * NOTE: When adding fields in the process of updating this API, make sure to bump
-         * [.PARCELABLE_VERSION].
+         * [PARCELABLE_VERSION].
          */
         dest.writeInt(PARCELABLE_VERSION)
         // Inject a placeholder that will store the parcel size from this point on
@@ -54,7 +54,7 @@ class OpenPgpError() : Parcelable {
         dest.setDataPosition(startPosition + parcelableSize)
     }
 
-    companion object CREATOR : Creator<OpenPgpError> {
+    internal companion object CREATOR : Creator<OpenPgpError> {
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning

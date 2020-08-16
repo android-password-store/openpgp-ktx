@@ -30,20 +30,20 @@ import me.msfjarvis.openpgpktx.util.getAttr
 import org.openintents.openpgp.IOpenPgpService2
 import org.openintents.openpgp.OpenPgpError
 
-class OpenPgpKeyPreference @JvmOverloads constructor(
+public class OpenPgpKeyPreference @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = getAttr(context, R.attr.preferenceStyle, android.R.attr.preferenceStyle),
     defStyleRes: Int = 0
 ) : Preference(context, attrs, defStyleAttr, defStyleRes) {
     private var keyId: Long = 0
-    var openPgpProvider: String? = null
+    private var openPgpProvider: String? = null
         set(value) {
             field = value
             updateEnabled()
         }
-    var defaultUserId: String? = null
-    var intentRequestCode = 9999
+    private var defaultUserId: String? = null
+    private var intentRequestCode = 9999
     private var serviceConnection: OpenPgpServiceConnection? = null
 
     override fun getSummary(): CharSequence? {
@@ -123,17 +123,11 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
         setAndPersist(newValue)
     }
 
-    /**
-     * Public API
-     */
-    fun setValue(keyId: Long) {
+    public fun setValue(keyId: Long) {
         setAndPersist(keyId)
     }
 
-    /**
-     * Public API
-     */
-    fun getValue(): Long {
+    public fun getValue(): Long {
         return keyId
     }
 
@@ -198,7 +192,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
         notifyChanged()
     }
 
-    fun handleOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
+    public fun handleOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
         return if (requestCode == intentRequestCode && resultCode == Activity.RESULT_OK) {
             getSignKeyId(data)
             true
@@ -207,7 +201,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
         }
     }
 
-    companion object {
+    private companion object {
         private const val NO_KEY = 0L
         private const val TAG = "OpenPgpKeyPreference"
     }
@@ -219,7 +213,7 @@ class OpenPgpKeyPreference @JvmOverloads constructor(
      *
      * It is important to always call through to super methods.
      */
-    class SavedState : BaseSavedState {
+    internal class SavedState : BaseSavedState {
         internal var keyId: Long = 0
         internal var openPgpProvider: String? = null
         internal var defaultUserId: String? = null

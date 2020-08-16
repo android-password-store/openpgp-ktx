@@ -11,7 +11,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import me.msfjarvis.openpgpktx.R
 import me.msfjarvis.openpgpktx.model.OpenPgpProviderEntry
 
-object ProviderUtils {
+internal object ProviderUtils {
     private const val OPENKEYCHAIN_PACKAGE = "org.sufficientlysecure.keychain"
     private const val MARKET_INTENT_URI_BASE = "market://details?id=%s"
     private const val PACKAGE_NAME_APG = "org.thialfihar.android.apg"
@@ -25,7 +25,7 @@ object ProviderUtils {
         )
     )
 
-    fun getAppList(context: Context): ArrayList<OpenPgpProviderEntry> {
+    internal fun getAppList(context: Context): ArrayList<OpenPgpProviderEntry> {
         val apps = ArrayList<OpenPgpProviderEntry>()
 
         // Add the 'None' option

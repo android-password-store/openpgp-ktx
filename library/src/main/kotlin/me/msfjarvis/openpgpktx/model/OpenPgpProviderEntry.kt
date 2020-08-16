@@ -7,7 +7,7 @@ package me.msfjarvis.openpgpktx.model
 import android.content.Intent
 import android.graphics.drawable.Drawable
 
-data class OpenPgpProviderEntry(
+internal data class OpenPgpProviderEntry(
     val packageName: String,
     val simpleName: String,
     val icon: Drawable? = null,

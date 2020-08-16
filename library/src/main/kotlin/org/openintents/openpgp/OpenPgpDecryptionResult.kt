@@ -10,18 +10,18 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.os.Parcelable.Creator
 
-class OpenPgpDecryptionResult() : Parcelable {
+public class OpenPgpDecryptionResult() : Parcelable {
     private var result = 0
     private var sessionKey: ByteArray? = null
     private var decryptedSessionKey: ByteArray? = null
 
-    constructor(result: Int) : this() {
+    private constructor(result: Int) : this() {
         this.result = result
         sessionKey = null
         decryptedSessionKey = null
     }
 
-    constructor(
+    private constructor(
         result: Int,
         sessionKey: ByteArray?,
         decryptedSessionKey: ByteArray?
@@ -34,21 +34,21 @@ class OpenPgpDecryptionResult() : Parcelable {
         this.decryptedSessionKey = decryptedSessionKey
     }
 
-    fun getResult(): Int {
+    public fun getResult(): Int {
         return result
     }
 
-    fun hasDecryptedSessionKey(): Boolean {
+    public fun hasDecryptedSessionKey(): Boolean {
         return sessionKey != null
     }
 
-    fun getSessionKey(): ByteArray? {
+    public fun getSessionKey(): ByteArray? {
         return if (sessionKey == null) {
             null
         } else sessionKey!!.copyOf(sessionKey!!.size)
     }
 
-    fun getDecryptedSessionKey(): ByteArray? {
+    public fun getDecryptedSessionKey(): ByteArray? {
         return if (sessionKey == null || decryptedSessionKey == null) {
             null
         } else decryptedSessionKey!!.copyOf(decryptedSessionKey!!.size)
@@ -85,7 +85,7 @@ class OpenPgpDecryptionResult() : Parcelable {
         return "\nresult: $result"
     }
 
-    companion object CREATOR : Creator<OpenPgpDecryptionResult> {
+    private companion object CREATOR : Creator<OpenPgpDecryptionResult> {
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning

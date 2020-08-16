@@ -19,11 +19,11 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.util.concurrent.atomic.AtomicInteger
 
-class OpenPgpApi(private val context: Context, private val service: IOpenPgpService2) {
+public class OpenPgpApi(private val context: Context, private val service: IOpenPgpService2) {
 
     private val pipeIdGen: AtomicInteger = AtomicInteger()
 
-    suspend fun executeApiAsync(
+    public suspend fun executeApiAsync(
         data: Intent?,
         inputStream: InputStream?,
         outputStream: OutputStream?,
@@ -35,7 +35,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
         }
     }
 
-    fun executeApi(data: Intent?, inputStream: InputStream?, outputStream: OutputStream?): Intent? {
+    public fun executeApi(data: Intent?, inputStream: InputStream?, outputStream: OutputStream?): Intent? {
         var input: ParcelFileDescriptor? = null
         return try {
             if (inputStream != null) {
@@ -118,15 +118,15 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
         }
     }
 
-    companion object {
-        const val TAG = "OpenPgp API"
+    public companion object {
+        private const val TAG = "OpenPgp API"
 
-        const val SERVICE_INTENT_2 = "org.openintents.openpgp.IOpenPgpService2"
+        public const val SERVICE_INTENT_2: String = "org.openintents.openpgp.IOpenPgpService2"
 
         /**
          * see CHANGELOG.md
          */
-        const val API_VERSION = 11
+        public const val API_VERSION: Int = 11
 
         /**
          * General extras
@@ -160,7 +160,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
          *
          * This action uses no extras.
          */
-        const val ACTION_CHECK_PERMISSION = "org.openintents.openpgp.action.CHECK_PERMISSION"
+        public const val ACTION_CHECK_PERMISSION: String = "org.openintents.openpgp.action.CHECK_PERMISSION"
 
         /**
          * Sign text resulting in a cleartext signature
@@ -175,7 +175,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
          * optional extras:
          * char[]        EXTRA_PASSPHRASE            (key passphrase)
          */
-        const val ACTION_CLEARTEXT_SIGN = "org.openintents.openpgp.action.CLEARTEXT_SIGN"
+        public const val ACTION_CLEARTEXT_SIGN: String = "org.openintents.openpgp.action.CLEARTEXT_SIGN"
 
         /**
          * Sign text or binary data resulting in a detached signature.
@@ -193,7 +193,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
          * byte[]        RESULT_DETACHED_SIGNATURE
          * String        RESULT_SIGNATURE_MICALG     (contains the name of the used signature algorithm as a string)
          */
-        const val ACTION_DETACHED_SIGN = "org.openintents.openpgp.action.DETACHED_SIGN"
+        public const val ACTION_DETACHED_SIGN: String = "org.openintents.openpgp.action.DETACHED_SIGN"
 
         /**
          * Encrypt
@@ -209,7 +209,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
          * String        EXTRA_ORIGINAL_FILENAME     (original filename to be encrypted as metadata)
          * boolean       EXTRA_ENABLE_COMPRESSION    (enable ZLIB compression, default ist true)
          */
-        const val ACTION_ENCRYPT = "org.openintents.openpgp.action.ENCRYPT"
+        public const val ACTION_ENCRYPT: String = "org.openintents.openpgp.action.ENCRYPT"
 
         /**
          * Sign and encrypt
@@ -226,9 +226,9 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
          * String        EXTRA_ORIGINAL_FILENAME     (original filename to be encrypted as metadata)
          * boolean       EXTRA_ENABLE_COMPRESSION    (enable ZLIB compression, default ist true)
          */
-        const val ACTION_SIGN_AND_ENCRYPT = "org.openintents.openpgp.action.SIGN_AND_ENCRYPT"
+        public const val ACTION_SIGN_AND_ENCRYPT: String = "org.openintents.openpgp.action.SIGN_AND_ENCRYPT"
 
-        const val ACTION_QUERY_AUTOCRYPT_STATUS =
+        public const val ACTION_QUERY_AUTOCRYPT_STATUS: String =
             "org.openintents.openpgp.action.QUERY_AUTOCRYPT_STATUS"
 
         /**
@@ -250,7 +250,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
          * OpenPgpDecryptMetadata   RESULT_METADATA
          * String                   RESULT_CHARSET   (charset which was specified in the headers of ascii armored input, if any)
          */
-        const val ACTION_DECRYPT_VERIFY = "org.openintents.openpgp.action.DECRYPT_VERIFY"
+        public const val ACTION_DECRYPT_VERIFY: String = "org.openintents.openpgp.action.DECRYPT_VERIFY"
 
         /**
          * Decrypts the header of an encrypted file to retrieve metadata such as original filename.
@@ -261,7 +261,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
          * OpenPgpDecryptMetadata   RESULT_METADATA
          * String                   RESULT_CHARSET   (charset which was specified in the headers of ascii armored input, if any)
          */
-        const val ACTION_DECRYPT_METADATA = "org.openintents.openpgp.action.DECRYPT_METADATA"
+        public const val ACTION_DECRYPT_METADATA: String = "org.openintents.openpgp.action.DECRYPT_METADATA"
 
         /**
          * Select key id for signing
@@ -272,7 +272,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
          * returned extras:
          * long        EXTRA_SIGN_KEY_ID
          */
-        const val ACTION_GET_SIGN_KEY_ID = "org.openintents.openpgp.action.GET_SIGN_KEY_ID"
+        public const val ACTION_GET_SIGN_KEY_ID: String = "org.openintents.openpgp.action.GET_SIGN_KEY_ID"
 
         /**
          * Get key ids based on given user ids (=emails)
@@ -283,7 +283,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
          * returned extras:
          * long[]        RESULT_KEY_IDS
          */
-        const val ACTION_GET_KEY_IDS = "org.openintents.openpgp.action.GET_KEY_IDS"
+        public const val ACTION_GET_KEY_IDS: String = "org.openintents.openpgp.action.GET_KEY_IDS"
 
         /**
          * This action returns RESULT_CODE_SUCCESS if the OpenPGP Provider already has the key
@@ -299,7 +299,7 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
          * optional extras:
          * String      EXTRA_REQUEST_ASCII_ARMOR (request that the returned key is encoded in ASCII Armor)
          */
-        const val ACTION_GET_KEY = "org.openintents.openpgp.action.GET_KEY"
+        public const val ACTION_GET_KEY: String = "org.openintents.openpgp.action.GET_KEY"
 
         /**
          * Backup all keys given by EXTRA_KEY_IDS and if requested their secret parts.
@@ -311,91 +311,91 @@ class OpenPgpApi(private val context: Context, private val service: IOpenPgpServ
          * long[]      EXTRA_KEY_IDS       (keys that should be included in the backup)
          * boolean     EXTRA_BACKUP_SECRET (also backup secret keys)
          */
-        const val ACTION_BACKUP = "org.openintents.openpgp.action.BACKUP"
+        public const val ACTION_BACKUP: String = "org.openintents.openpgp.action.BACKUP"
 
-        const val ACTION_UPDATE_AUTOCRYPT_PEER =
+        public const val ACTION_UPDATE_AUTOCRYPT_PEER: String =
             "org.openintents.openpgp.action.UPDATE_AUTOCRYPT_PEER"
 
         /* Intent extras */
-        const val EXTRA_API_VERSION = "api_version"
+        public const val EXTRA_API_VERSION: String = "api_version"
 
         // ACTION_DETACHED_SIGN, ENCRYPT, SIGN_AND_ENCRYPT, DECRYPT_VERIFY
         // request ASCII Armor for output
         // OpenPGP Radix-64, 33 percent overhead compared to binary, see http://tools.ietf.org/html/rfc4880#page-53)
-        const val EXTRA_REQUEST_ASCII_ARMOR = "ascii_armor"
+        public const val EXTRA_REQUEST_ASCII_ARMOR: String = "ascii_armor"
 
         // ACTION_DETACHED_SIGN
-        const val RESULT_DETACHED_SIGNATURE = "detached_signature"
-        const val RESULT_SIGNATURE_MICALG = "signature_micalg"
+        public const val RESULT_DETACHED_SIGNATURE: String = "detached_signature"
+        public const val RESULT_SIGNATURE_MICALG: String = "signature_micalg"
 
         // ENCRYPT, SIGN_AND_ENCRYPT, QUERY_AUTOCRYPT_STATUS
-        const val EXTRA_USER_IDS = "user_ids"
-        const val EXTRA_KEY_IDS = "key_ids"
-        const val EXTRA_KEY_IDS_SELECTED = "key_ids_selected"
-        const val EXTRA_SIGN_KEY_ID = "sign_key_id"
+        public const val EXTRA_USER_IDS: String = "user_ids"
+        public const val EXTRA_KEY_IDS: String = "key_ids"
+        public const val EXTRA_KEY_IDS_SELECTED: String = "key_ids_selected"
+        public const val EXTRA_SIGN_KEY_ID: String = "sign_key_id"
 
-        const val RESULT_KEYS_CONFIRMED = "keys_confirmed"
-        const val RESULT_AUTOCRYPT_STATUS = "autocrypt_status"
-        const val AUTOCRYPT_STATUS_UNAVAILABLE = 0
-        const val AUTOCRYPT_STATUS_DISCOURAGE = 1
-        const val AUTOCRYPT_STATUS_AVAILABLE = 2
-        const val AUTOCRYPT_STATUS_MUTUAL = 3
+        public const val RESULT_KEYS_CONFIRMED: String = "keys_confirmed"
+        public const val RESULT_AUTOCRYPT_STATUS: String = "autocrypt_status"
+        public const val AUTOCRYPT_STATUS_UNAVAILABLE: Int = 0
+        public const val AUTOCRYPT_STATUS_DISCOURAGE: Int = 1
+        public const val AUTOCRYPT_STATUS_AVAILABLE: Int = 2
+        public const val AUTOCRYPT_STATUS_MUTUAL: Int = 3
 
         // optional extras:
-        const val EXTRA_PASSPHRASE = "passphrase"
-        const val EXTRA_ORIGINAL_FILENAME = "original_filename"
-        const val EXTRA_ENABLE_COMPRESSION = "enable_compression"
-        const val EXTRA_OPPORTUNISTIC_ENCRYPTION = "opportunistic"
+        public const val EXTRA_PASSPHRASE: String = "passphrase"
+        public const val EXTRA_ORIGINAL_FILENAME: String = "original_filename"
+        public const val EXTRA_ENABLE_COMPRESSION: String = "enable_compression"
+        public const val EXTRA_OPPORTUNISTIC_ENCRYPTION: String = "opportunistic"
 
         // GET_SIGN_KEY_ID
-        const val EXTRA_USER_ID = "user_id"
+        public const val EXTRA_USER_ID: String = "user_id"
 
         // GET_KEY
-        const val EXTRA_KEY_ID = "key_id"
-        const val EXTRA_MINIMIZE = "minimize"
-        const val EXTRA_MINIMIZE_USER_ID = "minimize_user_id"
-        const val RESULT_KEY_IDS = "key_ids"
+        public const val EXTRA_KEY_ID: String = "key_id"
+        public const val EXTRA_MINIMIZE: String = "minimize"
+        public const val EXTRA_MINIMIZE_USER_ID: String = "minimize_user_id"
+        public const val RESULT_KEY_IDS: String = "key_ids"
 
         // BACKUP
-        const val EXTRA_BACKUP_SECRET = "backup_secret"
+        public const val EXTRA_BACKUP_SECRET: String = "backup_secret"
 
         /* Service Intent returns */
-        const val RESULT_CODE = "result_code"
+        public const val RESULT_CODE: String = "result_code"
 
         // get actual error object from RESULT_ERROR
-        const val RESULT_CODE_ERROR = 0
+        public const val RESULT_CODE_ERROR: Int = 0
 
         // success!
-        const val RESULT_CODE_SUCCESS = 1
+        public const val RESULT_CODE_SUCCESS: Int = 1
 
         // get PendingIntent from RESULT_INTENT, start PendingIntent with startIntentSenderForResult,
         // and execute service method again in onActivityResult
-        const val RESULT_CODE_USER_INTERACTION_REQUIRED = 2
+        public const val RESULT_CODE_USER_INTERACTION_REQUIRED: Int = 2
 
-        const val RESULT_ERROR = "error"
-        const val RESULT_INTENT = "intent"
+        public const val RESULT_ERROR: String = "error"
+        public const val RESULT_INTENT: String = "intent"
 
         // DECRYPT_VERIFY
-        const val EXTRA_DETACHED_SIGNATURE = "detached_signature"
-        const val EXTRA_PROGRESS_MESSENGER = "progress_messenger"
-        const val EXTRA_DATA_LENGTH = "data_length"
-        const val EXTRA_DECRYPTION_RESULT = "decryption_result"
-        const val EXTRA_SENDER_ADDRESS = "sender_address"
-        const val EXTRA_SUPPORT_OVERRIDE_CRYPTO_WARNING = "support_override_crpto_warning"
-        const val EXTRA_AUTOCRYPT_PEER_ID = "autocrypt_peer_id"
-        const val EXTRA_AUTOCRYPT_PEER_UPDATE = "autocrypt_peer_update"
-        const val EXTRA_AUTOCRYPT_PEER_GOSSIP_UPDATES = "autocrypt_peer_gossip_updates"
-        const val RESULT_SIGNATURE = "signature"
-        const val RESULT_DECRYPTION = "decryption"
-        const val RESULT_METADATA = "metadata"
-        const val RESULT_INSECURE_DETAIL_INTENT = "insecure_detail_intent"
-        const val RESULT_OVERRIDE_CRYPTO_WARNING = "override_crypto_warning"
+        public const val EXTRA_DETACHED_SIGNATURE: String = "detached_signature"
+        public const val EXTRA_PROGRESS_MESSENGER: String = "progress_messenger"
+        public const val EXTRA_DATA_LENGTH: String = "data_length"
+        public const val EXTRA_DECRYPTION_RESULT: String = "decryption_result"
+        public const val EXTRA_SENDER_ADDRESS: String = "sender_address"
+        public const val EXTRA_SUPPORT_OVERRIDE_CRYPTO_WARNING: String = "support_override_crpto_warning"
+        public const val EXTRA_AUTOCRYPT_PEER_ID: String = "autocrypt_peer_id"
+        public const val EXTRA_AUTOCRYPT_PEER_UPDATE: String = "autocrypt_peer_update"
+        public const val EXTRA_AUTOCRYPT_PEER_GOSSIP_UPDATES: String = "autocrypt_peer_gossip_updates"
+        public const val RESULT_SIGNATURE: String = "signature"
+        public const val RESULT_DECRYPTION: String = "decryption"
+        public const val RESULT_METADATA: String = "metadata"
+        public const val RESULT_INSECURE_DETAIL_INTENT: String = "insecure_detail_intent"
+        public const val RESULT_OVERRIDE_CRYPTO_WARNING: String = "override_crypto_warning"
 
         // This will be the charset which was specified in the headers of ascii armored input, if any
-        const val RESULT_CHARSET = "charset"
+        public const val RESULT_CHARSET: String = "charset"
 
         // INTERNAL, must not be used
-        const val EXTRA_CALL_UUID1 = "call_uuid1"
-        const val EXTRA_CALL_UUID2 = "call_uuid2"
+        internal const val EXTRA_CALL_UUID1 = "call_uuid1"
+        internal const val EXTRA_CALL_UUID2 = "call_uuid2"
     }
 }
