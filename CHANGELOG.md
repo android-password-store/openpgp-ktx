@@ -2,6 +2,11 @@
 
 ### [Unreleased]
 
+### [2.1.0] - 2020-08-16
+- Target Android 11
+- Update to Kotlin 1.4
+- Update library dependencies
+
 ### [2.0.0] - 2020-04-29
 - **BREAKING**: Remove `IOpenPgpCallback` and replace it with a lambda reference.
 
@@ -22,7 +27,8 @@
 ### [0.1.0] - 2019-11-08
 - Initial release
 
-[Unreleased]: https://github.com/android-password-store/openpgp-ktx/compare/2.0.0...HEAD
+[Unreleased]: https://github.com/android-password-store/openpgp-ktx/compare/2.1.0...HEAD
+[2.1.0]: https://github.com/android-password-store/openpgp-ktx/releases/2.1.0
 [2.0.0]: https://github.com/android-password-store/openpgp-ktx/releases/2.0.0
 [1.2.0]: https://github.com/android-password-store/openpgp-ktx/releases/1.2.0
 [1.1.0]: https://github.com/android-password-store/openpgp-ktx/releases/1.1.0
