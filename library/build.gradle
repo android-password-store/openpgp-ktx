@@ -17,6 +17,8 @@ final def today = { ->
 }
 
 android {
+    buildFeatures.buildConfig = false
+
     buildTypes {
         release {
             minifyEnabled false
@@ -26,10 +28,6 @@ android {
 
     lintOptions {
         disable 'MissingTranslation' // Can't do anything about this
-    }
-
-    libraryVariants.all {
-        it.generateBuildConfigProvider.configure { enabled = false }
     }
 
     defaultConfig {
