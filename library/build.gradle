@@ -7,10 +7,10 @@ plugins {
     id 'maven-publish'
 }
 
-final def today = { ->
+final def gitHash = { ->
     final def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine 'date', '+%Y%m%d'
+        commandLine 'git', 'describe', '--tags'
         standardOutput = stdout
     }
     stdout.toString().trim()
@@ -52,7 +52,7 @@ afterEvaluate {
                 from components.release
                 groupId "$GROUP"
                 artifactId 'openpgp-ktx'
-                version System.env['SNAPSHOT'] == null ? "$VERSION_NAME" : "$VERSION_NAME-${today()}"
+                version System.env['SNAPSHOT'] == null ? "$VERSION_NAME" : "${gitHash()}"
             }
         }
     }
