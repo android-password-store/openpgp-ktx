@@ -86,23 +86,24 @@ public class OpenPgpDecryptionResult() : Parcelable {
         return "\nresult: $result"
     }
 
-    private companion object CREATOR : Creator<OpenPgpDecryptionResult> {
+    public companion object CREATOR : Creator<OpenPgpDecryptionResult> {
 
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning
          * system for the parcels sent between the clients and the providers.
          */
-        const val PARCELABLE_VERSION = 2
+        private const val PARCELABLE_VERSION  = 2
 
         // content not encrypted
-        const val RESULT_NOT_ENCRYPTED = -1
+        public const val RESULT_NOT_ENCRYPTED: Int  = -1
 
         // insecure!
-        const val RESULT_INSECURE = 0
+        public const val RESULT_INSECURE: Int  = 0
 
         // encrypted
-        const val RESULT_ENCRYPTED = 1
+        public const val RESULT_ENCRYPTED: Int  = 1
+
         override fun createFromParcel(source: Parcel): OpenPgpDecryptionResult? {
             val version = source.readInt() // parcelableVersion
             val parcelableSize = source.readInt()

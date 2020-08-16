@@ -164,7 +164,7 @@ public class OpenPgpSignatureResult : Parcelable {
         OK, NEW, MISMATCH;
     }
 
-    private companion object CREATOR : Creator<OpenPgpSignatureResult> {
+    public companion object CREATOR : Creator<OpenPgpSignatureResult> {
 
         /**
          * Since there might be a case where new versions of the client using the library getting
@@ -174,28 +174,28 @@ public class OpenPgpSignatureResult : Parcelable {
         private const val PARCELABLE_VERSION = 5
 
         // content not signed
-        const val RESULT_NO_SIGNATURE = -1
+        public const val RESULT_NO_SIGNATURE: Int = -1
 
         // invalid signature!
-        const val RESULT_INVALID_SIGNATURE = 0
+        public const val RESULT_INVALID_SIGNATURE: Int = 0
 
         // successfully verified signature, with confirmed key
-        const val RESULT_VALID_KEY_CONFIRMED = 1
+        public const val RESULT_VALID_KEY_CONFIRMED: Int = 1
 
         // no key was found for this signature verification
-        const val RESULT_KEY_MISSING = 2
+        public const val RESULT_KEY_MISSING: Int = 2
 
         // successfully verified signature, but with unconfirmed key
-        const val RESULT_VALID_KEY_UNCONFIRMED = 3
+        public const val RESULT_VALID_KEY_UNCONFIRMED: Int = 3
 
         // key has been revoked -> invalid signature!
-        const val RESULT_INVALID_KEY_REVOKED = 4
+        public const val RESULT_INVALID_KEY_REVOKED: Int = 4
 
         // key is expired -> invalid signature!
-        const val RESULT_INVALID_KEY_EXPIRED = 5
+        public const val RESULT_INVALID_KEY_EXPIRED: Int = 5
 
         // insecure cryptographic algorithms/protocol -> invalid signature!
-        const val RESULT_INVALID_KEY_INSECURE = 6
+        public const val RESULT_INVALID_KEY_INSECURE: Int = 6
 
         override fun createFromParcel(source: Parcel): OpenPgpSignatureResult? {
             val version = source.readInt() // parcelableVersion
@@ -211,7 +211,7 @@ public class OpenPgpSignatureResult : Parcelable {
             return arrayOfNulls(size)
         }
 
-        fun createWithValidSignature(
+        public fun createWithValidSignature(
             signatureStatus: Int,
             primaryUserId: String?,
             keyId: Long,
@@ -227,7 +227,7 @@ public class OpenPgpSignatureResult : Parcelable {
             )
         }
 
-        fun createWithNoSignature(): OpenPgpSignatureResult {
+        public fun createWithNoSignature(): OpenPgpSignatureResult {
             return OpenPgpSignatureResult(
                 RESULT_NO_SIGNATURE,
                 null,
@@ -241,7 +241,7 @@ public class OpenPgpSignatureResult : Parcelable {
             )
         }
 
-        fun createWithKeyMissing(keyId: Long, signatureTimestamp: Date?): OpenPgpSignatureResult {
+        public fun createWithKeyMissing(keyId: Long, signatureTimestamp: Date?): OpenPgpSignatureResult {
             return OpenPgpSignatureResult(
                 RESULT_KEY_MISSING,
                 null,
@@ -255,7 +255,7 @@ public class OpenPgpSignatureResult : Parcelable {
             )
         }
 
-        fun createWithInvalidSignature(): OpenPgpSignatureResult {
+        public fun createWithInvalidSignature(): OpenPgpSignatureResult {
             return OpenPgpSignatureResult(
                 RESULT_INVALID_SIGNATURE,
                 null,

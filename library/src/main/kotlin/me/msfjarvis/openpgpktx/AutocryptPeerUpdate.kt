@@ -85,7 +85,7 @@ public class AutocryptPeerUpdate() : Parcelable {
         dest.setDataPosition(startPosition + parcelableSize)
     }
 
-    internal companion object CREATOR : Creator<AutocryptPeerUpdate> {
+    public companion object CREATOR : Creator<AutocryptPeerUpdate> {
 
         private const val PARCELABLE_VERSION = 1
         override fun createFromParcel(source: Parcel): AutocryptPeerUpdate? {

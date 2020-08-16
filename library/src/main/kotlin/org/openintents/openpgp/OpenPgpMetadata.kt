@@ -80,14 +80,15 @@ public class OpenPgpMetadata() : Parcelable {
         dest.setDataPosition(startPosition + parcelableSize)
     }
 
-    private companion object CREATOR : Creator<OpenPgpMetadata> {
+    public companion object CREATOR : Creator<OpenPgpMetadata> {
 
         /**
          * Since there might be a case where new versions of the client using the library getting
          * old versions of the protocol (and thus old versions of this class), we need a versioning
          * system for the parcels sent between the clients and the providers.
          */
-        const val PARCELABLE_VERSION = 2
+        private const val PARCELABLE_VERSION = 2
+
         override fun createFromParcel(source: Parcel): OpenPgpMetadata? {
             val version = source.readInt() // parcelableVersion
             val parcelableSize = source.readInt()
