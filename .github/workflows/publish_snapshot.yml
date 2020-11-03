@@ -10,6 +10,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@c952173edf28a2bd22e1a4926590c1ac39630461
+      with:
+        fetch-depth: 0
     - name: Publish snapshot
       uses: burrunan/gradle-cache-action@03c71a8ba93d670980695505f48f49daf43704a6
       with:
