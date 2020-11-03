@@ -5,5 +5,10 @@ jobs:
   checks:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - run: ./gradlew build lint
+    - name: Checkout repository
+      uses: actions/checkout@c952173edf28a2bd22e1a4926590c1ac39630461
+
+    - name: Run checks
+      uses: burrunan/gradle-cache-action@03c71a8ba93d670980695505f48f49daf43704a6
+      with:
+        arguments: apiCheck build lint
