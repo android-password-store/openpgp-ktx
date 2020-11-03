@@ -2,6 +2,10 @@
 
 ### [Unreleased]
 
+### [2.2.0] - 2020-11-04
+- Update dependencies
+- Enable tracking of public API changes
+
 ### [2.1.0] - 2020-08-16
 - Target Android 11
 - Update to Kotlin 1.4
@@ -27,7 +31,8 @@
 ### [0.1.0] - 2019-11-08
 - Initial release
 
-[Unreleased]: https://github.com/android-password-store/openpgp-ktx/compare/2.1.0...HEAD
+[Unreleased]: https://github.com/android-password-store/openpgp-ktx/compare/2.2.0...HEAD
+[2.2.0]: https://github.com/android-password-store/openpgp-ktx/releases/2.2.0
 [2.1.0]: https://github.com/android-password-store/openpgp-ktx/releases/2.1.0
 [2.0.0]: https://github.com/android-password-store/openpgp-ktx/releases/2.0.0
 [1.2.0]: https://github.com/android-password-store/openpgp-ktx/releases/1.2.0
