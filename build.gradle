@@ -10,8 +10,15 @@ buildscript {
     }
     dependencies {
         classpath deps.gradle_plugin.android
+        classpath deps.gradle_plugin.binary_compatibility_validator
         classpath deps.gradle_plugin.kotlin
     }
+}
+
+apply plugin: 'binary-compatibility-validator'
+
+apiValidation {
+    ignoredProjects += ["sample"]
 }
 
 subprojects {

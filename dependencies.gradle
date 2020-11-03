@@ -11,6 +11,7 @@ ext.versions = [
 ext.deps = [
     gradle_plugin: [
         android: 'com.android.tools.build:gradle:4.1.0',
+        binary_compatibility_validator: 'org.jetbrains.kotlinx:binary-compatibility-validator:0.2.3',
         kotlin: 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10',
     ],
 
